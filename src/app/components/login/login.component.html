@@ -1,24 +1,24 @@
 
 <div class="w3-container w3-card login-card">
-	<form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+	<form>
 		<div class="split left" style="margin-left: 10%;">
 		<div>
 			<img src="assets/card.png" class="logo" style="width: 60%;">
 			
 		
 		<div style="margin-left: 30px;">
-			<button class="w3-btn w3-blue" style="border-radius: 50%;width: 10%;padding: 3%;">-</button>
-			<label class="w3-btn w3-green" style="border-radius: 8px;margin-left: 7%;margin-right: 7%;width: 26%;">100 SEK</label>
-			<button class="w3-btn w3-red" style="border-radius: 50%;width: 10%;padding: 3%;">+</button><br>
+			<button class="w3-btn w3-blue" style="border-radius: 50%;width: 10%;padding: 3%;" (click)="negative(cardValueCount)" name="cardValueCount">-</button>
+			<label class="w3-btn w3-green" style="border-radius: 8px;margin-left: 7%;margin-right: 7%;width: 26%;">{{cardValue}}</label>
+			<button class="w3-btn w3-red" style="border-radius: 50%;width: 10%;padding: 3%;" (click)="positive(cardValueCount)" name="cardValueCount">+</button><br>
 		</div>
 		<div style="margin-top: 5%; margin-left: 5%;">
-			<button class="w3-btn w3-red" style="width: 18%;border-radius: 8%;">50 SEK</button>
-			<button class="w3-btn w3-red" style="margin-left: 3%; width: 18%; margin-right: 3%; border-radius: 8%;">100 SEK</button>
-			<button class="w3-btn w3-red" style="width: 18%; border-radius: 8%;">500 SEK</button><br>
+			<button class="w3-btn w3-red" style="width: 18%;border-radius: 8%;" (click)="onClick('50 SEK')" name="cardValueCount" >50 SEK</button>
+			<button class="w3-btn w3-red" style="margin-left: 3%; width: 18%; margin-right: 3%; border-radius: 8%;" (click)="onClick('100 SEK')" name="cardValueCount">100 SEK</button>
+			<button class="w3-btn w3-red" style="width: 18%; border-radius: 8%;" (click)="onClick('500 SEK')" name="cardValueCount">500 SEK</button><br>
 		</div>
 		<div style="margin-top: 2%;margin-left: 17%;">
-			<button class="w3-btn w3-red" style="width: 18%; border-radius: 8%;">1000 SEK</button>
-			<button class="w3-btn w3-red" style="width: 18%; margin-left: 3%; border-radius: 8%;">1500 SEK</button>
+			<button class="w3-btn w3-red" style="width: 18%; border-radius: 8%;" (click)="onClick('1000 SEK')" name="cardValueCount">1000 SEK</button>
+			<button class="w3-btn w3-red" style="width: 18%; margin-left: 3%; border-radius: 8%;" (click)="onClick('1500 SEK')" name="cardValueCount">1500 SEK</button>
 		</div>
 	</div>	
 	
