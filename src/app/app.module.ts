@@ -27,6 +27,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent, homeChildRoutes } from './components/home/home.component';
 import { HighlightStudentDirective } from './directives/highlight-student.directive';
 import { AppRoutingModule } from './app-routing.module';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 
 
@@ -41,7 +42,9 @@ import { AppRoutingModule } from './app-routing.module';
 		HomeComponent,
 		FilterPipe,
 		PhonePipe,
-		HighlightStudentDirective
+		HighlightStudentDirective,
+		CheckoutComponent
+		
 	],
 	imports: [
 		BrowserModule,
