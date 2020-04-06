@@ -28,6 +28,7 @@ import { HomeComponent, homeChildRoutes } from './components/home/home.component
 import { HighlightStudentDirective } from './directives/highlight-student.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { MailComponent } from './components/mail/mail.component';
 
 
 
@@ -43,7 +44,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 		FilterPipe,
 		PhonePipe,
 		HighlightStudentDirective,
-		CheckoutComponent
+		CheckoutComponent,
+		MailComponent
 		
 	],
 	imports: [
