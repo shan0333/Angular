@@ -1,0 +1,128 @@
+<div class="w3-container w3-card login-card">
+	<form>
+		<div class="split left">
+			<div style="margin-left: 5%;">
+				<h4 style="margin-left: 3%;">Order Total = {{totalAmt}} SEK</h4>
+		
+				
+					<table class="table">
+					  <thead>
+						<tr>
+						  <th>Product</th>
+						  <th>Quantity</th>
+						  <th>Amount</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						<tr *ngFor="let d of data">
+						  <td>{{d.product}}</td>
+						  <td>{{d.quantity}}</td>
+						  <td>{{d.amount}}</td>
+						</tr>
+					  </tbody>
+					</table>
+
+<div style="width: 60%;margin-left: 10%;">
+          <button class="w3-btn w3-blue" style="margin-left: 3%;width: 90%;margin-top: 5%;margin-bottom: 3%;">Amount Due = {{totalAmt}} SEK</button> 
+          
+              
+          
+    
+          
+            <img src="assets/pay1.jpg" class="logo" style="width: 20%;">
+            <img src="assets/pay9.jpg" class="logo" style="width: 20%;">
+            <img src="assets/pay4.jpg" class="logo" style="width: 20%;"> <br>
+    
+            <img src="assets/pay3.jpg" class="logo" style="width: 20%;">
+            <img src="assets/pay8.jpg" class="logo" style="width: 20%;">
+            <img src="assets/pay2.jpg" class="logo" style="width: 20%;">
+    
+        </div>   
+        
+	
+		</div>
+	
+    </div>
+
+    <div class="split right">
+<div style="margin-top: 7%;">
+        <button class="w3-btn w3-yellow" style="width: 45%;">Existing gift cards
+          </button>
+				<button class="w3-btn w3-grey" style="width: 45%;">Use new gift card
+          </button> 
+          <div style="margin-top: 3%;">
+              <table class="table" style="width: 90%;">
+                  <thead style="background-color: darkgrey;">
+                  <tr>
+                      <th>Number</th>
+                      <th>Status</th>
+                      <th>Avaliable Amount</th>
+                      <th>Avail</th>
+                      <th>Remaining</th>
+                  </tr>
+                  </thead>
+                  <tbody style="background-color: lightgrey;">
+                  <tr *ngFor="let d of data1">
+                      <td style="background-color: hotpink;"><a href="#">{{d.number}}</a></td>
+                      <td>{{d.status}}</td>
+                      <td>{{d.availamount}}</td>
+                      <td>{{d.avail}}</td>
+                      <td>{{d.remain}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+          </div>
+      </div>
+
+      <div style="margin-top: 7%;">
+          <button class="w3-btn w3-grey" style="width: 45%;">Existing gift cards
+            </button>
+          <button class="w3-btn w3-yellow" style="width: 45%;">Use new gift card
+            </button> 
+            <div style="margin-top: 3%;">
+                <table class="table" style="width: 90%;">
+                    <thead style="background-color: darkgrey;">
+                    <tr>
+                      <th>Number</th>
+                      <th>Status</th>
+                      <th>Avaliable Amount</th>
+                      <th>Avail</th>
+                      <th>Remaining</th>
+                    </tr>
+                    </thead>
+                    <tbody style="background-color: lightgrey;">
+                    <tr *ngFor="let d of data2">
+                      <td style="background-color: hotpink;"><a href="#">{{d.number}}</a></td>
+                      <td>{{d.status}}</td>
+                      <td>{{d.availamount}}</td>
+                      <td>{{d.avail}}</td>
+                      <td>{{d.remain}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+        
+                </div>
+        <label style="margin-right: 22%;">*Real-time check of card authenticity and available balance
+          </label>
+
+         
+              </div>
+              <div style="margin-top: 5%;">
+                  <button class="w3-blue">Remaining Amount:<br>
+                    Total = 400 SEK <br>
+                    Gift Card = 150 SEK<br>
+                    Remaining = 250 SEK
+                    
+                  </button>
+              </div>
+              <div style="margin-left: 46%;margin-top: -13%;height: 14%;">
+                  <button class="w3-red" style="padding-bottom: 11%;">Choose another tender <br> for payment completion
+                    </button>
+        
+
+              </div>
+    </div>
+
+	</form>
+	
+</div>
