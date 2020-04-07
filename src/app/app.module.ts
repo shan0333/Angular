@@ -24,13 +24,12 @@ import { StudentListComponent } from './components/student/list/student-list.com
 import { StudentDetailsComponent } from './components/student/details/student-details.component';
 import { StudentAddComponent } from './components/student/add/student-add.component';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent, homeChildRoutes } from './components/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { HighlightStudentDirective } from './directives/highlight-student.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { MailComponent } from './components/mail/mail.component';
-
-
+import { OrderhisComponent } from './components/orderhis/orderhis.component';
 
 
 @NgModule({
@@ -45,7 +44,8 @@ import { MailComponent } from './components/mail/mail.component';
 		PhonePipe,
 		HighlightStudentDirective,
 		CheckoutComponent,
-		MailComponent
+		MailComponent,
+		OrderhisComponent
 		
 	],
 	imports: [
