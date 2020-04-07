@@ -5,6 +5,7 @@ import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { MailComponent } from './components/mail/mail.component';
+import { OrderhisComponent } from './components/orderhis/orderhis.component';
 
 
 
@@ -16,8 +17,8 @@ const routes: Routes = [
     canActivate: [AuthService]
   },
   {
-    path: 'mail',
-    component: MailComponent
+    path: 'orderhis',
+    component: OrderhisComponent
   },
   {
     path: '**',
