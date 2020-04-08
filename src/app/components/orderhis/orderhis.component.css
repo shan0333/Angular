@@ -14,13 +14,23 @@
 /* Split the screen in half */
 .split {
 	height: 100%;
-	width: 50%;
+	
 	position: fixed;
 	z-index: 1;
 	top: 0;
 	overflow-x: hidden;
 	padding-top: 20px;
   }
+
+  .split1 {
+	height: 100%;
+	width: 55%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	overflow-x: hidden;
+	padding-top: 20px;
+  } 
   
   /* Control the left side */
   .left {
@@ -62,4 +72,24 @@
       
       table, th, td {
         border: 1px solid black;
+      }
+
+
+
+      #container {
+        
+        overflow: hidden;
+        width: 200px;
+      }
+      
+      #inner {
+        overflow: hidden;
+        width: 2000px;
+      }
+      
+      .child {
+        float: left;
+        
+        width: 50px;
+        height: 50px;
       }
