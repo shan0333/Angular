@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { MailComponent } from './components/mail/mail.component';
 import { OrderhisComponent } from './components/orderhis/orderhis.component';
+import { FinalcheckoutComponent } from './components/finalcheckout/finalcheckout.component';
 
 
 
