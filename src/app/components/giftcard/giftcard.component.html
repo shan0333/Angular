@@ -1,0 +1,47 @@
+
+<div class="w3-container w3-card login-card">
+	<form>
+		<div class="split left" style="margin-left: 10%;">
+		<div>
+			<img src="assets/card.png" class="logo" style="width: 60%;">
+			
+		
+		<div style="margin-left: 30px;">
+			<button class="w3-btn w3-blue" style="border-radius: 50%;width: 10%;padding: 3%;" (click)="negative(cardValueCount)" name="cardValueCount">-</button>
+			<label class="w3-btn w3-green" style="border-radius: 8px;margin-left: 7%;margin-right: 7%;width: 26%;">{{cardValue}}</label>
+			<button class="w3-btn w3-red" style="border-radius: 50%;width: 10%;padding: 3%;" (click)="positive(cardValueCount)" name="cardValueCount">+</button><br>
+		</div>
+		<div style="margin-top: 5%; margin-left: 5%;">
+			<button class="w3-btn w3-red" style="width: 18%;border-radius: 8%;" (click)="onClick('50 SEK')" name="cardValueCount" >50 SEK</button>
+			<button class="w3-btn w3-red" style="margin-left: 3%; width: 18%; margin-right: 3%; border-radius: 8%;" (click)="onClick('100 SEK')" name="cardValueCount">100 SEK</button>
+			<button class="w3-btn w3-red" style="width: 18%; border-radius: 8%;" (click)="onClick('500 SEK')" name="cardValueCount">500 SEK</button><br>
+		</div>
+		<div style="margin-top: 2%;margin-left: 17%;">
+			<button class="w3-btn w3-red" style="width: 18%; border-radius: 8%;" (click)="onClick('1000 SEK')" name="cardValueCount">1000 SEK</button>
+			<button class="w3-btn w3-red" style="width: 18%; margin-left: 3%; border-radius: 8%;" (click)="onClick('1500 SEK')" name="cardValueCount">1500 SEK</button>
+		</div>
+	</div>	
+	
+	</div>
+		<div class="split right">
+			<h4 style="font-weight: bold;margin-top: 15%;">IKEA e-Gift Card </h4>
+
+			<h4 style="font-weight: bold;margin-top: 5%;">Gift them what they really want. This online gift card is the perfect present for anyone.</h4>
+				
+				<h4 style="font-weight: bold;margin-top: 5%;">Redemption : In-store, Online and IKEA App<br>
+				Amount range: 50 SEK – 1500 SEK 
+				 </h4>
+				 <h5 style="margin-top: 8%;">
+						<button class="w3-btn w3-blue" style="border-radius: 50%;padding: 0%;width: 4%;">i</button>
+						Valid for sale across all IKEA locations
+				</h5>
+				<div style="margin-top: 13%;">
+				<button class="w3-btn w3-blue" style="width: 25%;border-radius: 8%;">Buy for myself</button>
+			<button class="w3-btn w3-green" style="margin-left: 5%; width: 25%; border-radius: 8%;">This is a Gift</button>
+		</div>
+		</div> 
+		
+		<!-- <button class="w3-btn w3-blue" type="submit" [disabled]="!loginForm.valid">Login <i class="w3-medium fa fa-check"></i> </button> -->
+	</form>
+	
+</div>
