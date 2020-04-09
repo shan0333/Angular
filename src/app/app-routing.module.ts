@@ -14,8 +14,28 @@ import { BuyComponent } from './components/buy/buy.component';
 const routes: Routes = [
   
   {
-    path: 'checkout',
+    path: 'g1',
+    component: GiftcardComponent
+  },
+  {
+    path: 'g2',
     component: BuyComponent
+  },
+  {
+    path: 'g3',
+    component: CheckoutComponent
+  },
+  {
+    path: 'g4',
+    component: MailComponent
+  },
+  {
+    path: 'g5',
+    component: OrderhisComponent
+  },
+  {
+    path: 'g6',
+    component: FinalcheckoutComponent
   },
   {
     path: '**',
