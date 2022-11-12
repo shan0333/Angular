@@ -11,10 +11,14 @@ export class ItemMasterComponent implements OnInit {
   selectedFile:any = null;
   resData: any;
  groups = [
-    { firstName: 'John', lastName: 'Doe', age: '35', salary: 5000 },
-    { firstName: 'Michael', lastName: 'Smith', age: '39', salary: 5000 },
-    { firstName: 'Michael', lastName: 'Jordan', age: '45', salary: 7000 },
-    { firstName: 'Tanya', lastName: 'Blake', age: '47', salary: 8000 }
+     {
+         sno: '1', refNo: 'CA0001', customerCode: 'AL', customerName: 'Ashok Leyland', customerLocation: 'Hosur', project: 'Car',
+         projectDescription: 'Car parts',createdDate:'09-11-2022',destinationCustomerName:'Australia'
+     },
+     {
+         sno: '2', refNo: 'CA0002', customerCode: 'AL', customerName: 'Ashok Leyland', customerLocation: 'Hosur', project: 'Car',
+         projectDescription: 'Car parts',createdDate:'09-11-2022',destinationCustomerName:'England'
+     }
 ];
   constructor(private itemService: ItemserviceService,private httpClient: HttpClient) { }
 
