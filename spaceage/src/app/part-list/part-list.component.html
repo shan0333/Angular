@@ -15,121 +15,146 @@
 
 </head>  
 <body style="margin:20px auto">  
-<div class="container">
-<div class="row header" style="text-align:center;color:green"></div>
-
- <div style="text-align: right; margin-right:auto 0px;" > 
-  <button style="margin: 50px; padding: 10px" type="button" class="btn btn-primary"  (click)="openPopup()">New Record</button>
-</div> 
-
-<table id="myTable" class="table table-striped" >  
-        <thead>  
-          <tr>  
-            <th>ENO</th>  
-            <th>EMPName</th>  
-            <th>Country</th>  
-            <th>Salary</th>  
-          </tr>  
-        </thead>  
-        <tbody>  
-            <ng-container *ngFor="let group of groups">
-                <tr><td>{{group.firstName}}</td><td>{{group.lastName}}</td><td>{{group.age}}</td><td>{{group.salary}}</td></tr>
-            </ng-container>
-        </tbody>  
-      </table>  
+    <div class="container">
+        <div class="row header" style="text-align:center;color:green"></div>
+          <table id="myTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Position</th>
+                    <th>Part No</th>
+                    <th>Description</th>
+                    <th>Packing Group</th>
+                    <th>Store Location</th>
+                    <th>Validity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let p of partList">
+                    <tr>
+                        <td>{{p.bomId}}</td>
+                        <td></td>
+                        <td>{{p.partNo}}</td>
+                        <td>{{p.partDescription}}</td>
+                        <td>{{p.packingGroup}}</td>
+                        <td>{{p.stLoction}}</td>
+                        <td>{{p.validity}}</td>
+                        <td><a routerLink="/barcode" (click)="passObject(p)">PartLabel</a></td>
+                    <!--<td>{{p.itemMasterId}}</td>
+                    <td>{{p.version}}</td>
+                    <td>{{p.catDescription}}</td>
+                    <td>{{p.qtyRequired}}</td>
+                    <td>{{p.qtyLot}}</td>
+                    <td>{{p.primaryNo}}</td>
+                    <td>{{p.secondaryNo}}</td>
+                    <td>{{p.packCode}}</td>
+                    <td>{{p.packQty}}</td>
+                    <td>{{p.totalNoOfPackingGroup}}</td>
+                    <td>{{p.mixGroup}}</td>
+                    <td>{{p.mix}}</td>
+                    <td>{{p.bomNo}}</td>
+                    <td>{{p.caseMap}}</td>
+                    <td>{{p.images}}</td>
+                    <td>{{p.createdBy}}</td>
+                    <td>{{p.createdDate}}</td>
+                    <td>{{p.modifiedBy}}</td>
+                    <td>{{p.modifiedDate}}</td>
+                    <td>{{p.status}}</td>-->
+                    </tr>
+                 
+                </ng-container>
+            </tbody>
+        </table>
 
         <!-- The Modal -->
-        <div
-        class="modal"
-        tabindex="-1"
-        role="dialog"
-        [ngStyle]="{'display':displayStyle}">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content" style="width: 750px !important; ">
-            <div class="modal-header">
-              <h4 class="modal-title">Create New Record</h4>
-            </div>
-            <div class="modal-body">
-              <div class="container py-5" >
-                <div class="row">
-                    <div class="col-md-10 mx-auto">
-                        <form>
-                            <div class="form-group row">
-                                <div class="col-sm-6">
-                                    <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
-                                    <input type="text" class="form-control" id="projectCode" placeholder="Project Code">
+        <div class="modal"
+             tabindex="-1"
+             role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width: 750px !important; ">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create New Record</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container py-5">
+                            <div class="row">
+                                <div class="col-md-10 mx-auto">
+                                    <form>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="projectCode" placeholder="Project Code">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="lotSize" placeholder="Lot Size">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+
+                                            <div class="col-sm-6">
+                                                <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="customerCode" placeholder="Customer Code">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="inputState">Customer Login<span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="customerLogin" placeholder="Customer Login">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="originCountry" placeholder="Origin Country">
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
+                                                <input type="file" class="form-control" id="inputPostalCode" placeholder="Upload File">
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="packagingType" placeholder="Packaging Type">
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No">
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="containers" placeholder="Containers">
+                                            </div>
+
+                                        </div>
+                                        <button type="button" class="btn btn-primary px-4 float-right margin-align">Add</button>
+                                    </form>
                                 </div>
-                                <div class="col-sm-6">
-                                  <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
-                                  <input type="text" class="form-control" id="lotSize" placeholder="Lot Size">
-                              </div>
                             </div>
-                            <div class="form-group row">
+                        </div>
 
-                              <div class="col-sm-6">
-                                <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
-                                <input type="text" class="form-control" id="customerCode" placeholder="Customer Code">
-                            </div>
-                                <div class="col-sm-6">
-                                  <label for="inputState">Customer Login<span class="mandatory">*</span></label>
-                                  <input type="text" class="form-control" id="customerLogin" placeholder="Customer Login">
-                              </div>
-                               
-                            </div>
-                            <div class="form-group row">
-                              <div class="col-sm-6">
-                                <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
-                                <input type="text" class="form-control" id="originCountry" placeholder="Origin Country">
-                            </div>
-
-                            <div class="col-sm-6">
-                              <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
-                              <input type="file" class="form-control" id="inputPostalCode" placeholder="Upload File">
-                          </div>
-                            
-
-                            </div>
-                            <div class="form-group row">
-                              <div class="col-sm-6">
-                                <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
-                                <input type="text" class="form-control" id="packagingType" placeholder="Packaging Type">
-                            </div>
-
-                            <div class="col-sm-6">
-                              <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
-                              <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No">
-                          </div>
-                            
-
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-6">
-                                    <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
-                                    <input type="text" class="form-control" id="containers" placeholder="Containers">
-                                </div>
-                                
-                            </div>
-                            <button type="button" class="btn btn-primary px-4 float-right margin-align">Add</button>
-                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">
+                            Create
+                        </button>
+                        <button type="button" class="btn btn-danger"
+                                (click)="closePopup()">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
-        
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-success" 
-                      (click)="createNewRecord()">
-                Create
-              </button>
-              <button type="button" class="btn btn-danger" 
-              (click)="closePopup()">
-        Close
-      </button>
-            </div>
-          </div>
         </div>
-      </div>
-</div>
+    </div>
 
   
 </body>  

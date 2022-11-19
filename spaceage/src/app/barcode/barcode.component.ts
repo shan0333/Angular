@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-barcode',
@@ -6,18 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./barcode.component.css']
 })
 export class BarcodeComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+	barcodeList: any = [];
+	partList: any = []; 
+	
+	constructor(private router: ActivatedRoute) { }
+	
+	ngOnInit(): void {
+		this.partList.push(localStorage.getItem("list"));
+		this.barcodeList.push(JSON.parse(this.partList));
+		
   }
 
-	PrintSerials = [{
-		SerialId: 'PRTLAMZ16460288041',
-		Name: 'A'
+	/*printSerials = [{
+		serialId: 'PRTLAMZ16460288041',
+		name: 'A'
 	},
 	{
-		SerialId: 'PRTLAMZ16460288042',
-		Name: 'A'
-	}];
+		serialId: 'PRTLAMZ16460288042',
+		name: 'A'
+		}];
+ */
+ 
 }

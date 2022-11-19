@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
+import { ItemserviceService } from 'src/app/services/itemservice.service';
 
 @Component({
   selector: 'app-part-list',
@@ -8,16 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartListComponent implements OnInit {
 
-  groups = [
-    { firstName: 'John', lastName: 'Doe', age: '35', salary: 5000 },
-    { firstName: 'Michael', lastName: 'Smith', age: '39', salary: 5000 },
-    { firstName: 'Michael', lastName: 'Jordan', age: '45', salary: 7000 },
-    { firstName: 'Tanya', lastName: 'Blake', age: '47', salary: 8000 }
-];
+    lotRefNo: any;
+    partList: Array<any> = [];
+    
 
-  constructor() { }
+    constructor(private route: ActivatedRoute, private itemService: ItemserviceService) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+        this.route.queryParams
+            .subscribe(params => {
+                this.lotRefNo = params;
+            }
+        );
+
+       this.getBomById();
   }
 
   displayStyle = "none";
@@ -28,7 +33,15 @@ export class PartListComponent implements OnInit {
   closePopup() {
     this.displayStyle = "none";
   }
-  createNewRecord() {
-    
-  }
+  getBomById() {
+     this.itemService.getBomById(this.lotRefNo.lotNo).subscribe(data => {
+         this.partList = data;
+
+     },
+        error => console.log(error));
+    }
+
+    passObject(i:any) {
+        localStorage.setItem('list', JSON.stringify(i));
+    } 
 }

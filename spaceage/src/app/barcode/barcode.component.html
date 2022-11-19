@@ -1,6 +1,31 @@
-<p>barcode works!</p>
-<tr *ngFor="let PS of PrintSerials">
-    <ngx-barcode [bc-value]="PS.SerialId" [bc-display-value]="true">
+<tr *ngFor="let ps of barcodeList">
+    <lable>Part Number:</lable>
+    {{ps.partNo}}
+    <lable>Pack Qty:</lable>
+    {{ps.packQty}}<br>
+    <lable>{{ps.partDescription}}</lable>
+    <lable>LOT #:</lable>
+    {{ps.itemMasterId}}<br>
+    <lable>CAT Code:</lable>
+    {{ps.catDescription}}
+    <lable>CAT Desc:</lable>
+    {{ps.catDescription}}
+    <lable>Case:</lable>
+    {{ps.caseMap}}
+    <lable>PK GRP:</lable>
+    {{ps.packingGroup}}
+    <ngx-barcode [bc-value]="ps.partNo" [bc-display-value]="true"></ngx-barcode>
+    <lable>MIX GRP</lable>
+    {{ps.mixGroup}}
+    <lable>MIX</lable>
+    {{ps.mix}}
+    <lable>PROC</lable>
+    {{ps.totalNoOfPackingGroup}}
+    <lable>Pack Code</lable>
+    {{ps.packCode}}
+    <lable>USER ID</lable>
+    {{"ADMIN"}}
+    <lable>Pack Date:-</lable>
+    {{ps.createdDate}}
 
-    </ngx-barcode>
 </tr>

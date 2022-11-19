@@ -38,7 +38,8 @@
         </thead>  
         <tbody>  
             <ng-container *ngFor="let i of itemList">
-                <tr><td>{{i.item_id}}</td>
+                <tr>
+                <td><a routerLink="/partlist" [queryParams]="{lotNo:i.item_id}">{{i.item_id}}</a></td>
 <td>{{i.lot_ref_no}}</td>
 <td>{{i.customer_code}}</td>
 <td>{{i.name}}</td>
@@ -57,7 +58,7 @@
         tabindex="-1"
         role="dialog"
         [ngStyle]="{'display':displayStyle}">
-        <div class="modal-dialog" role="document" style="margin: 100px;">
+        <div class="modal-dialog" role="document" style="margin: 74px;margin-left: 177px;margin-top: 64px;">
           <div class="modal-content" style="width: fit-content" >
             <div class="modal-header">
               <h4 class="modal-title">Create New Record</h4>
