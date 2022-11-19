@@ -57,8 +57,8 @@
         tabindex="-1"
         role="dialog"
         [ngStyle]="{'display':displayStyle}">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content" style="width: 750px !important; ">
+        <div class="modal-dialog" role="document" style="margin: 100px;">
+          <div class="modal-content" style="width: fit-content" >
             <div class="modal-header">
               <h4 class="modal-title">Create New Record</h4>
             </div>
@@ -70,7 +70,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-6">
                                     <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
-                                    <select  name="project_code" [(ngModel)]="item.project_code">
+                                    <select class="form-control"  name="project_code" [(ngModel)]="item.project_code">
                                       <option>Select</option>
                                         <option *ngFor="let item of this.projectList;let i = index" value="{{item.project_id}}">
                                           {{item.project_name}}
@@ -87,7 +87,7 @@
 
                               <div class="col-sm-6">
                                 <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
-                                <select  name="customer_code" [(ngModel)]="item.customer_code">
+                                <select class="form-control"  name="customer_code" [(ngModel)]="item.customer_code">
                                   <option>Select</option>
                                     <option *ngFor="let item of this.customerList;let i = index" value="{{item.customer_id}}">
                                       {{item.name}}
@@ -96,7 +96,7 @@
                             </div>
                                 <div class="col-sm-6">
                                   <label for="inputState">Customer Login<span class="mandatory">*</span></label>
-                                  <select name="customer_login" [(ngModel)]="item.customer_login">
+                                  <select class="form-control" name="customer_login" [(ngModel)]="item.customer_login">
                                     <option>0</option>
                                       <option *ngFor="let item of this.dataList;let i = index" value="test">
                                         
@@ -108,7 +108,7 @@
                             <div class="form-group row">
                               <div class="col-sm-6">
                                 <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
-                                <select name="org_country_id" [(ngModel)]="item.org_country_id">
+                                <select class="form-control" name="org_country_id" [(ngModel)]="item.org_country_id">
                                   <option>Select</option>
                                     <option *ngFor="let item of this.countryList;let i = index" value="{{item.id}}">
                                       {{item.name}}
@@ -126,7 +126,7 @@
                             <div class="form-group row">
                               <div class="col-sm-6">
                                 <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
-                                <select name="packing_type" [(ngModel)]="item.packing_type">
+                                <select class="form-control" name="packing_type" [(ngModel)]="item.packing_type">
                                   <option>Select</option>
                                     <option *ngFor="let item of this.packagingTypeList;let i = index" value="{{item.id}}" >
                                       {{item.type}}

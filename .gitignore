@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Spaceage/FileContentIndex
+/.vs/Spaceage/v17
+/.vs
+/spaceage/.angular/cache/14.2.5
+/spaceage/node_modules
