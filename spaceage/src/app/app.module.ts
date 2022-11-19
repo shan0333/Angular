@@ -9,7 +9,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RightsideHeaderComponent } from './rightside-header/rightside-header.component';
 import { MainHeaderComponent } from './main-header/main-header.component';
 import { HttpClientModule } from '@angular/common/http';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { NgxBarcodeModule } from 'ngx-barcode';
+import { BarcodeComponent } from './barcode/barcode.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import {Location} from '@angular/common';
     PartListComponent,
     DashboardComponent,
     RightsideHeaderComponent,
-    MainHeaderComponent
+    MainHeaderComponent,
+    BarcodeComponent
     
   ],
   imports: [
@@ -26,7 +29,8 @@ import {Location} from '@angular/common';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxBarcodeModule
   ],
   providers: [Location],
   bootstrap: [AppComponent]

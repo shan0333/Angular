@@ -25,15 +25,28 @@
 <table id="myTable" class="table table-striped" >  
         <thead>  
           <tr>  
-            <th>ENO</th>  
-            <th>EMPName</th>  
-            <th>Country</th>  
-            <th>Salary</th>  
+            <th>NO</th>  
+            <th>Lot Ref No</th>  
+            <th>Customer Code</th>  
+            <th>Customer Name</th> 
+            <th>Customer Location</th>
+            <th>Project Code</th>
+            <th>Project Description</th>
+            <th>CreatedAt</th>
+            <th>Destination Customer Name</th>  
           </tr>  
         </thead>  
         <tbody>  
-            <ng-container *ngFor="let group of groups">
-                <tr><td>{{group.firstName}}</td><td>{{group.lastName}}</td><td>{{group.age}}</td><td>{{group.salary}}</td></tr>
+            <ng-container *ngFor="let i of itemList">
+                <tr><td>{{i.item_id}}</td>
+<td>{{i.lot_ref_no}}</td>
+<td>{{i.customer_code}}</td>
+<td>{{i.name}}</td>
+<td>{{i.customer_location}}</td>
+<td>{{i.project_code}}</td>
+<td>{{i.project_name}}</td>
+<td>{{i.createdDate}}</td>
+<td>{{i.country}}</td></tr>
             </ng-container>
         </tbody>  
       </table>  
@@ -59,7 +72,7 @@
                                     <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
                                     <select  name="project_code" [(ngModel)]="item.project_code">
                                       <option>Select</option>
-                                        <option *ngFor="let item of this.projectList;let i = index" value="{{item.project_code}}">
+                                        <option *ngFor="let item of this.projectList;let i = index" value="{{item.project_id}}">
                                           {{item.project_name}}
                                         </option>
                                       </select>
@@ -76,7 +89,7 @@
                                 <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
                                 <select  name="customer_code" [(ngModel)]="item.customer_code">
                                   <option>Select</option>
-                                    <option *ngFor="let item of this.customerList;let i = index" value="{{item.customer_code}}">
+                                    <option *ngFor="let item of this.customerList;let i = index" value="{{item.customer_id}}">
                                       {{item.name}}
                                     </option>
                                   </select>
@@ -84,9 +97,9 @@
                                 <div class="col-sm-6">
                                   <label for="inputState">Customer Login<span class="mandatory">*</span></label>
                                   <select name="customer_login" [(ngModel)]="item.customer_login">
-                                    <option>Select</option>
-                                      <option *ngFor="let item of this.dataList;let i = index" value="{{item.code}}">
-                                        {{item.name}}
+                                    <option>0</option>
+                                      <option *ngFor="let item of this.dataList;let i = index" value="test">
+                                        
                                       </option>
                                     </select>
                               </div>
@@ -143,7 +156,7 @@
                             <div >
                                 <button type="button" class="btn btn-success" 
                                 (click)="createNewRecord()">
-                          Create Rec
+                          Create
                         </button>
                             </div>
                         </form>

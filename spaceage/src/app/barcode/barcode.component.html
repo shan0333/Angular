@@ -1,0 +1,6 @@
+<p>barcode works!</p>
+<tr *ngFor="let PS of PrintSerials">
+    <ngx-barcode [bc-value]="PS.SerialId" [bc-display-value]="true">
+
+    </ngx-barcode>
+</tr>

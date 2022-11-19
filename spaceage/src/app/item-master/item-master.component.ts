@@ -84,8 +84,9 @@ export class ItemMasterComponent implements OnInit {
     
      else {
       alert("Please select a file first")
-    }
-    this.userForm.reset();
+      }
+      this.getItem();
+    
   }
 
   getItem(){
