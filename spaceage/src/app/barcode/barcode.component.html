@@ -1,31 +1,87 @@
-<tr *ngFor="let ps of barcodeList">
-    <lable>Part Number:</lable>
-    {{ps.partNo}}
-    <lable>Pack Qty:</lable>
-    {{ps.packQty}}<br>
-    <lable>{{ps.partDescription}}</lable>
-    <lable>LOT #:</lable>
-    {{ps.itemMasterId}}<br>
-    <lable>CAT Code:</lable>
-    {{ps.catDescription}}
-    <lable>CAT Desc:</lable>
-    {{ps.catDescription}}
-    <lable>Case:</lable>
-    {{ps.caseMap}}
-    <lable>PK GRP:</lable>
-    {{ps.packingGroup}}
-    <ngx-barcode [bc-value]="ps.partNo" [bc-display-value]="true"></ngx-barcode>
-    <lable>MIX GRP</lable>
-    {{ps.mixGroup}}
-    <lable>MIX</lable>
-    {{ps.mix}}
-    <lable>PROC</lable>
-    {{ps.totalNoOfPackingGroup}}
-    <lable>Pack Code</lable>
-    {{ps.packCode}}
-    <lable>USER ID</lable>
-    {{"ADMIN"}}
-    <lable>Pack Date:-</lable>
-    {{ps.createdDate}}
+<div class="container mt-5 mb-3" *ngFor="let ps of barcodeList" style="font-weight: 800 !important;">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="ms-2 c-details">
+                            <span class="mb-0">Part Number:</span> 
+                            <span class="mr-15 font-size-lg">{{ps.partNo}}</span>
+                        </div>
+                        <div class="ms-2 c-details">
+                            <span class="mb-0"> Pack Qty:</span> 
+                            <span class="mr-15 font-size-lg">{{ps.packQty}}</span>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="mt-10">
+                    <span>{{ps.partDescription}}</span>
+                    <span>      Lot #: {{ps.itemMasterId}}</span>
+                    <div class="mt-5">
+                        <div>
+                            <div>
+                                <span>CAT Code    <span>{{ps.catDescription}}</span></span>
+                                <span>    CAT Desc    {{ps.catDescription}}</span>
+                                <span>    Case        {{ps.caseMap}}</span>
+                                <span>    PK GRP      {{ps.bomSlNo}}</span>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <ngx-barcode [bc-value]="ps.barCodeNo" [bc-display-value]="true"></ngx-barcode>
+                        </div>
+                        <div class="mt-3">
+                            <span>MIX GRP    <span>{{ps.mixGroup}}</span></span>
+                            <span>   MIX    {{ps.mix}}</span>
+                            <span>    PROC        {{ps.packQty}}</span>
+                            <span>    PACK CODE     {{ps.packCode}}</span>
+                            <span>    USER ID     {{"ADMIN01"}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</tr>
+
+
+
+
+
+
+
+
+
+
+       <!-- <tr *ngFor="let ps of barcodeList">
+            <lable>Part Number:</lable>
+            {{ps.partNo}}
+            <lable>Pack Qty:</lable>
+            {{ps.packQty}}
+            <br>
+            <lable>{{ps.partDescription}}</lable>
+            <lable>LOT #:</lable>
+            {{ps.itemMasterId}}
+            <br>
+            <lable>CAT Code:</lable>
+            {{ps.catDescription}}
+            <lable>CAT Desc:</lable>
+            {{ps.catDescription}}
+            <lable>Case:</lable>
+            {{ps.caseMap}}
+            <lable>PK GRP:</lable>
+            {{ps.packingGroup}}
+            <ngx-barcode [bc-value]="ps.barCodeNo" [bc-display-value]="true"></ngx-barcode>
+            <lable>MIX GRP</lable>
+            {{ps.mixGroup}}
+            <lable>MIX</lable>
+            {{ps.mix}}
+            <lable>PROC</lable>
+            {{ps.totalNoOfPackingGroup}}
+            <lable>Pack Code</lable>
+            {{ps.packCode}}
+            <lable>USER ID</lable>
+            {{"ADMIN"}}
+            <lable>Pack Date:-</lable>
+            {{ps.createdDate}}
+
+        </tr>-->
