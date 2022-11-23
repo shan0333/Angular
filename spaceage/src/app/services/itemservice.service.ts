@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ItemserviceService {
   
  baseUrl = 'http://localhost:8080/api/csv/';
-    id: string;
+
 
  constructor(private httpClient: HttpClient) { }
  
