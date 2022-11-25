@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { BarcodeComponent } from './barcode/barcode.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { BarcodeComponent } from './barcode/barcode.component';
     RightsideHeaderComponent,
     MainHeaderComponent,
     BarcodeComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -30,7 +31,8 @@ import { BarcodeComponent } from './barcode/barcode.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxBarcodeModule
+    NgxBarcodeModule,
+    NgxDatatableModule
   ],
   providers: [Location],
   bootstrap: [AppComponent]

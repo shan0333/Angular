@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { ItemMaster } from '../itemmaster';
 import { FormGroup, FormBuilder, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { formatCurrency } from '@angular/common';
+import { columns } from './data-table-config';
+import { SortType } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-item-master',
@@ -11,7 +13,7 @@ import { formatCurrency } from '@angular/common';
   styleUrls: ['./item-master.component.css']
 })
 export class ItemMasterComponent implements OnInit {
-  selectedFile:any = null;
+  selectedFile: any = null;
   resData: any;
   dataList: Array<any> = [];
   projectList: Array<any> = [];
@@ -19,25 +21,33 @@ export class ItemMasterComponent implements OnInit {
   packagingTypeList: Array<any> = [];
   countryList: Array<any> = [];
   itemList: Array<any> = [];
+  cols = [...columns];
+  sortType = SortType;
+  page = {
+    totalElements: 60,
+    pageNumber: 0,
+    size: 10,
+  }
+  tmpItems = [];
 
   item: ItemMaster = new ItemMaster();
   userForm: FormGroup;
- groups = [
+  groups = [
     { firstName: 'John', lastName: 'Doe', age: '35', salary: 5000 },
     { firstName: 'Michael', lastName: 'Smith', age: '39', salary: 5000 },
     { firstName: 'Michael', lastName: 'Jordan', age: '45', salary: 7000 },
     { firstName: 'Tanya', lastName: 'Blake', age: '47', salary: 8000 }
-];
-  
-  constructor(private itemService: ItemserviceService,private httpClient: HttpClient, private fb: FormBuilder) {
+  ];
+
+  constructor(private itemService: ItemserviceService, private httpClient: HttpClient, private fb: FormBuilder) {
     this.userForm = this.fb.group({
-      
+
       containers: this.fb.array([
         this.fb.control(null)
       ])
     })
-    
-   }
+
+  }
 
   ngOnInit(): void {
     this.getItem();
@@ -48,7 +58,7 @@ export class ItemMasterComponent implements OnInit {
   }
 
   displayStyle = "none";
-  
+
   openPopup() {
     this.displayStyle = "block";
     this.getProject();
@@ -58,15 +68,15 @@ export class ItemMasterComponent implements OnInit {
   }
   closePopup() {
     this.displayStyle = "none";
-   
+
   }
 
   onSubmit() {
-   
-    this.createNewRecord();    
+
+    this.createNewRecord();
   }
   createNewRecord() {
-    
+
     const payload = new FormData();
     this.item.containers = this.userForm.value.containers;
     payload.append('item', JSON.stringify(this.item));
@@ -76,57 +86,59 @@ export class ItemMasterComponent implements OnInit {
     if (this.selectedFile) {
       this.itemService.uploadfile(payload).subscribe(data => {
         console.log(data)
-        
+
         this.userForm.reset();
-      }, 
-      error => console.log(error));
+      },
+        error => console.log(error));
     }
-    
-     else {
+
+    else {
       alert("Please select a file first")
-      }
-      this.getItem();
-    
+    }
+    this.getItem();
+
   }
 
-  getItem(){
+  getItem() {
     this.itemService.getItem().subscribe(data => {
-      this.itemList = data;
-      
-    }, 
-    error => console.log(error));
+      // this.itemList = data;
+      this.tmpItems = data;
+      this.setPage({ offset: 0 });
+
+    },
+      error => console.log(error));
   }
 
-  getProject(){
+  getProject() {
     this.itemService.getProject().subscribe(data => {
       this.projectList = data;
-      
-    }, 
-    error => console.log(error));
+
+    },
+      error => console.log(error));
   }
 
-  getCustomer(){
+  getCustomer() {
     this.itemService.getCustomer().subscribe(data => {
       this.customerList = data;
-      
-    }, 
-    error => console.log(error));
+
+    },
+      error => console.log(error));
   }
 
-  getPackagingType(){
+  getPackagingType() {
     this.itemService.getPackagingType().subscribe(data => {
       this.packagingTypeList = data;
-      
-    }, 
-    error => console.log(error));
+
+    },
+      error => console.log(error));
   }
 
-  getCountry(){
+  getCountry() {
     this.itemService.getCountry().subscribe(data => {
       this.countryList = data;
-      
-    }, 
-    error => console.log(error));
+
+    },
+      error => console.log(error));
   }
 
   addContainers(): void {
@@ -140,7 +152,15 @@ export class ItemMasterComponent implements OnInit {
   }
 
   getContainersFormControls(): AbstractControl[] {
-    return (<FormArray> this.userForm.get('containers')).controls
+    return (<FormArray>this.userForm.get('containers')).controls
+  }
+
+  setPage(pageInfo: any) {
+    this.page.pageNumber = pageInfo.offset;
+    console.log('page number:', this.page.pageNumber);
+    console.log('size:', this.page.size);
+    console.log('total elements:', this.page.totalElements);
+    this.itemList = [...this.tmpItems.splice(0, this.page.size)];
   }
 
 }

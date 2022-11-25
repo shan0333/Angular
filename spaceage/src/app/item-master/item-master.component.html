@@ -1,6 +1,6 @@
-<!DOCTYPE html>   
-<html lang="en">   
-<head>   
+<!-- <!DOCTYPE html>    -->
+<!-- <html lang="en">    -->
+<!-- <head>   
 <meta charset="utf-8">   
 <title>Final Output</title>   
 <meta name="description" content="Bootstrap.">  
@@ -13,174 +13,180 @@
 
 
 
-</head>  
-<body style="margin:20px auto">  
+</head>   -->
+<!-- <body style="margin:20px auto">   -->
 <div class="container">
-<div class="row header" style="text-align:center;color:green"></div>
+    <div class="row header" style="text-align:center;color:green"></div>
 
- <div style="text-align: right; margin-right:auto 0px;" > 
-  <button style="margin: 50px; padding: 10px" type="button" class="btn btn-primary"  (click)="openPopup()">New Record</button>
-</div> 
+    <div style="margin-top: 16px; display: flex;">
+        <span style="margin-right: auto; font-weight: bold;">Bill of Material</span>
+        <button type="button" class="btn btn-primary" (click)="openPopup()">New Record</button>
+    </div>
 
-<table id="myTable" class="table table-striped" >  
-        <thead>  
-          <tr>  
-            <th>NO</th>  
-            <th>Lot Ref No</th>  
-            <th>Customer Code</th>  
-            <th>Customer Name</th> 
-            <th>Customer Location</th>
-            <th>Project Code</th>
-            <th>Project Description</th>
-            <th>CreatedAt</th>
-            <th>Destination Customer Name</th>  
-          </tr>  
-        </thead>  
-        <tbody>  
+    <ngx-datatable class="bootstrap" id="item-master" [rows]="itemList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [scrollbarH]="true" [reorderable]="false" [sortType]="sortType.multi" [externalPaging]="true" [count]="page.totalElements"
+        [offset]="page.pageNumber" [limit]="page.size" (page)="setPage($event)">
+        <ng-container *ngFor="let col of cols;">
+            <ngx-datatable-column [resizeable]="false" [name]="col.name" [prop]="col.prop" [width]="col.width">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{ value }}</span>
+                </ng-template>
+            </ngx-datatable-column>
+        </ng-container>
+    </ngx-datatable>
+
+    <!-- <table id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>Lot Ref No</th>
+                <th>Customer Code</th>
+                <th>Customer Name</th>
+                <th>Customer Location</th>
+                <th>Project Code</th>
+                <th>Project Description</th>
+                <th>CreatedAt</th>
+                <th>Destination Customer Name</th>
+            </tr>
+        </thead>
+        <tbody>
             <ng-container *ngFor="let i of itemList">
                 <tr>
-                <td><a routerLink="/partlist" [queryParams]="{lotNo:i.item_id}">{{i.item_id}}</a></td>
-<td>{{i.lot_ref_no}}</td>
-<td>{{i.customer_code}}</td>
-<td>{{i.name}}</td>
-<td>{{i.customer_location}}</td>
-<td>{{i.project_code}}</td>
-<td>{{i.project_name}}</td>
-<td>{{i.createdDate}}</td>
-<td>{{i.country}}</td></tr>
+                    <td><a routerLink="/partlist" [queryParams]="{lotNo:i.item_id}">{{i.item_id}}</a></td>
+                    <td>{{i.lot_ref_no}}</td>
+                    <td>{{i.customer_code}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.customer_location}}</td>
+                    <td>{{i.project_code}}</td>
+                    <td>{{i.project_name}}</td>
+                    <td>{{i.createdDate}}</td>
+                    <td>{{i.country}}</td>
+                </tr>
             </ng-container>
-        </tbody>  
-      </table>  
+        </tbody>
+    </table> -->
 
-        <!-- The Modal -->
-        <div
-        class="modal"
-        tabindex="-1"
-        role="dialog"
-        [ngStyle]="{'display':displayStyle}">
+    <!-- The Modal -->
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
         <div class="modal-dialog" role="document" style="margin: 74px;margin-left: 177px;margin-top: 64px;">
-          <div class="modal-content" style="width: fit-content" >
-            <div class="modal-header">
-              <h4 class="modal-title">Create New Record</h4>
-            </div>
-            <div class="modal-body">
-              <div class="container py-5" >
-                <div class="row">
-                    <div class="col-md-10 mx-auto">
-                        <form  name="fileupload" >
-                            <div class="form-group row">
-                                <div class="col-sm-6">
-                                    <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
-                                    <select class="form-control"  name="project_code" [(ngModel)]="item.project_code">
+            <div class="modal-content" style="width: fit-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create New Record</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container py-5">
+                        <div class="row">
+                            <div class="col-md-10 mx-auto">
+                                <form name="fileupload">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
+                                            <select class="form-control" name="project_code" [(ngModel)]="item.project_code">
                                       <option>Select</option>
                                         <option *ngFor="let item of this.projectList;let i = index" value="{{item.project_id}}">
                                           {{item.project_name}}
                                         </option>
                                       </select>
-                                    <!--<input type="text" class="form-control" id="projectCode" placeholder="Project Code">-->
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
-                                  <input type="text" class="form-control" name="lot_size" [(ngModel)]="item.lot_size" placeholder="Lot Size">
-                              </div>
-                            </div>
-                            <div class="form-group row">
+                                            <!--<input type="text" class="form-control" id="projectCode" placeholder="Project Code">-->
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" name="lot_size" [(ngModel)]="item.lot_size" placeholder="Lot Size">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
 
-                              <div class="col-sm-6">
-                                <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
-                                <select class="form-control"  name="customer_code" [(ngModel)]="item.customer_code">
+                                        <div class="col-sm-6">
+                                            <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="customer_code" [(ngModel)]="item.customer_code">
                                   <option>Select</option>
                                     <option *ngFor="let item of this.customerList;let i = index" value="{{item.customer_id}}">
                                       {{item.name}}
                                     </option>
                                   </select>
-                            </div>
-                                <div class="col-sm-6">
-                                  <label for="inputState">Customer Login<span class="mandatory">*</span></label>
-                                  <select class="form-control" name="customer_login" [(ngModel)]="item.customer_login">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="inputState">Customer Login<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="customer_login" [(ngModel)]="item.customer_login">
                                     <option>0</option>
                                       <option *ngFor="let item of this.dataList;let i = index" value="test">
                                         
                                       </option>
                                     </select>
-                              </div>
-                               
-                            </div>
-                            <div class="form-group row">
-                              <div class="col-sm-6">
-                                <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
-                                <select class="form-control" name="org_country_id" [(ngModel)]="item.org_country_id">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="org_country_id" [(ngModel)]="item.org_country_id">
                                   <option>Select</option>
                                     <option *ngFor="let item of this.countryList;let i = index" value="{{item.id}}">
                                       {{item.name}}
                                     </option>
                                   </select>
-                            </div>
+                                        </div>
 
-                            <div class="col-sm-6">
-                              <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
-                              <input (change)="this.onFileSelected($event)" type="file" class="form-control" id="inputPostalCode" placeholder="Upload File">
-                          </div>
-                            
+                                        <div class="col-sm-6">
+                                            <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
+                                            <input (change)="this.onFileSelected($event)" type="file" class="form-control" id="inputPostalCode" placeholder="Upload File">
+                                        </div>
 
-                            </div>
-                            <div class="form-group row">
-                              <div class="col-sm-6">
-                                <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
-                                <select class="form-control" name="packing_type" [(ngModel)]="item.packing_type">
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="packing_type" [(ngModel)]="item.packing_type">
                                   <option>Select</option>
                                     <option *ngFor="let item of this.packagingTypeList;let i = index" value="{{item.id}}" >
                                       {{item.type}}
                                     </option>
                                   </select>
-                            </div>
+                                        </div>
 
-                            <div class="col-sm-6">
-                              <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
-                              <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No"  name="lot_ref_no" [(ngModel)]="item.lot_ref_no">
-                          </div>
-                            
+                                        <div class="col-sm-6">
+                                            <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No" name="lot_ref_no" [(ngModel)]="item.lot_ref_no">
+                                        </div>
 
-                            </div>
-                            <div class="form-group row">
-                              <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
-                                <div  *ngFor="let containers of getContainersFormControls(); let i = index">
-                                    
-                                    <input [formControl]="containers" type="text" class="form-control" id="containers" placeholder="Containers" name="containers" >
-                                    <!--<label>Phone {{i}} </label> -->   
-                                    <button type="button"  (click)="removeContainers(i)">Remove</button>   
-                                    <button type="button"  (click)="addContainers()">Add</button> 
-                                  </div>
-                                
-                            </div>
-                        
-                            <div >
-                                <button type="button" class="btn btn-success" 
-                                (click)="createNewRecord()">
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
+                                        <div *ngFor="let containers of getContainersFormControls(); let i = index">
+
+                                            <input [formControl]="containers" type="text" class="form-control" id="containers" placeholder="Containers" name="containers">
+                                            <!--<label>Phone {{i}} </label> -->
+                                            <button type="button" (click)="removeContainers(i)">Remove</button>
+                                            <button type="button" (click)="addContainers()">Add</button>
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+                                        <button type="button" class="btn btn-success" (click)="createNewRecord()">
                           Create
                         </button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
+
                 </div>
-            </div>
-        
-            </div>
-            <div class="modal-footer">
-             
-              <button type="button" class="btn btn-danger" 
-              (click)="closePopup()">
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" (click)="closePopup()">
         Close
       </button>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>
 
-  
-</body>  
+
+<!-- </body>   -->
 
 
-</html>  
-
+<!-- </html>   -->
