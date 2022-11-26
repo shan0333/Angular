@@ -23,8 +23,8 @@
         <button type="button" class="btn btn-primary" (click)="openPopup()">New Record</button>
     </div>
 
-    <ngx-datatable class="bootstrap" id="item-master" [rows]="itemList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [scrollbarH]="true" [reorderable]="false" [sortType]="sortType.multi" [externalPaging]="true" [count]="page.totalElements"
-        [offset]="page.pageNumber" [limit]="page.size" (page)="setPage($event)">
+    <ngx-datatable class="bootstrap" id="item-master" [rows]="itemList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [scrollbarH]="true" [reorderable]="false" [sortType]="sortType" [externalPaging]="true" [count]="page.totalElements"
+        [offset]="page.pageNumber" [limit]="page.size" (page)="setPage($event)" [externalSorting]="true" [loadingIndicator]="loading" (sort)="onSort($event)">
         <ng-container *ngFor="let col of cols;">
             <ngx-datatable-column [resizeable]="false" [name]="col.name" [prop]="col.prop" [width]="col.width">
                 <ng-template let-value="value" ngx-datatable-cell-template>

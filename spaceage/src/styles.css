@@ -7,6 +7,14 @@
     width: 100%;
 }
 
+#item-master .datatable-header-cell.sortable.sort-active .datatable-header-cell-label {
+    color: #3699ff;
+}
+
+#item-master .datatable-header-cell.sortable.sort-active .sort-btn {
+    color: #3699ff;
+}
+
 .datatable-header-cell {
     font-weight: bold;
 }

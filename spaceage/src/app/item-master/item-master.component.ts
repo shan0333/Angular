@@ -24,13 +24,17 @@ export class ItemMasterComponent implements OnInit {
   countryList: Array<any> = [];
   itemList: Array<any> = [];
   cols = [...columns];
-  sortType = SortType;
+  sortType = SortType.single;
   page = {
     totalElements: 0,
     pageNumber: 0,
     size: 10
   }
-  tmpItems = [];
+  sort = {
+    sortByColumn: '',
+    sortByMode: ''
+  }
+  loading = false;
 
   item: ItemMaster = new ItemMaster();
   userForm: FormGroup;
@@ -101,17 +105,22 @@ export class ItemMasterComponent implements OnInit {
 
   getItem() {
     const requestPayload: IGetItem = {
-      sortByColumn: '',
-      sortByMode: '',
+      sortByColumn: this.sort.sortByColumn,
+      sortByMode: this.sort.sortByMode,
       offset: this.page.pageNumber * this.page.size,
       limit: this.page.size
     }
     this.itemService.getItem(requestPayload).subscribe(
       {
         next: res => {
+          this.loading = false;
           this.itemList = [...res?.data];
+          this.page.totalElements = res?.totalElements;
         },
-        error: error => console.log(error)
+        error: error => {
+          this.loading = false;
+          console.log(error);
+        }
       });
   }
 
@@ -163,6 +172,14 @@ export class ItemMasterComponent implements OnInit {
 
   setPage(pageInfo: any) {
     this.page.pageNumber = pageInfo.offset;
+    this.getItem();
+  }
+
+  onSort(event: any) {
+    this.loading = true;
+    const sortObj = event?.sorts?.[0];
+    this.sort.sortByColumn = sortObj?.prop;
+    this.sort.sortByMode = sortObj?.dir;
     this.getItem();
   }
 
