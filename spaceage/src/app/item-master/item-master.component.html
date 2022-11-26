@@ -28,7 +28,8 @@
         <ng-container *ngFor="let col of cols;">
             <ngx-datatable-column [resizeable]="false" [name]="col.name" [prop]="col.prop" [width]="col.width">
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{ value }}</span>
+                    <span *ngIf="col.prop == 'item_id'"><a style="text-decoration: none;" routerLink="/partlist" [queryParams]="{lotNo: value}">{{value}}</a></span>
+                    <span *ngIf="col.prop != 'item_id'">{{ value }}</span>
                 </ng-template>
             </ngx-datatable-column>
         </ng-container>
