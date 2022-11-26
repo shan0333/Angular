@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, FormArray, AbstractControl, FormControl } from 
 import { formatCurrency } from '@angular/common';
 import { columns } from './data-table-config';
 import { SortType } from '@swimlane/ngx-datatable';
+import { IGetItem } from '../interfaces/http-request-payload';
+declare var $: any;
 
 @Component({
   selector: 'app-item-master',
@@ -24,9 +26,9 @@ export class ItemMasterComponent implements OnInit {
   cols = [...columns];
   sortType = SortType;
   page = {
-    totalElements: 60,
+    totalElements: 0,
     pageNumber: 0,
-    size: 10,
+    size: 10
   }
   tmpItems = [];
 
@@ -50,25 +52,23 @@ export class ItemMasterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getItem();
+    this.setPage({ offset: 0 });
   }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0]
   }
 
-  displayStyle = "none";
 
   openPopup() {
-    this.displayStyle = "block";
+    $('#createItemModal').modal('show');
     this.getProject();
     this.getCustomer();
     this.getPackagingType();
     this.getCountry();
   }
   closePopup() {
-    this.displayStyle = "none";
-
+    $('#createItemModal').modal('hide');
   }
 
   onSubmit() {
@@ -100,13 +100,19 @@ export class ItemMasterComponent implements OnInit {
   }
 
   getItem() {
-    this.itemService.getItem().subscribe(data => {
-      // this.itemList = data;
-      this.tmpItems = data;
-      this.setPage({ offset: 0 });
-
-    },
-      error => console.log(error));
+    const requestPayload: IGetItem = {
+      sortByColumn: '',
+      sortByMode: '',
+      offset: this.page.pageNumber * this.page.size,
+      limit: this.page.size
+    }
+    this.itemService.getItem(requestPayload).subscribe(
+      {
+        next: res => {
+          this.itemList = [...res?.data];
+        },
+        error: error => console.log(error)
+      });
   }
 
   getProject() {
@@ -157,10 +163,7 @@ export class ItemMasterComponent implements OnInit {
 
   setPage(pageInfo: any) {
     this.page.pageNumber = pageInfo.offset;
-    console.log('page number:', this.page.pageNumber);
-    console.log('size:', this.page.size);
-    console.log('total elements:', this.page.totalElements);
-    this.itemList = [...this.tmpItems.splice(0, this.page.size)];
+    this.getItem();
   }
 
 }

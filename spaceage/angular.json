@@ -35,7 +35,8 @@
                             "./node_modules/@swimlane/ngx-datatable/assets/icons.css"
                         ],
                         "scripts": [
-                            "node_modules/bootstrap/dist/js/bootstrap.js"
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
                         ]
                     },
                     "configurations": {
