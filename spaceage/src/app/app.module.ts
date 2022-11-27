@@ -13,6 +13,8 @@ import { Location } from '@angular/common';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { BarcodeComponent } from './barcode/barcode.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,11 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      closeButton: true
+    }),
     NgxBarcodeModule,
     NgxDatatableModule
   ],

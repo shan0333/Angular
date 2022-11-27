@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { API_URLS } from '../constants/url-constants';
 import { IGetItem } from '../interfaces/http-request-payload';
 
 @Injectable({
@@ -8,41 +9,36 @@ import { IGetItem } from '../interfaces/http-request-payload';
 })
 export class ItemserviceService {
 
-  baseUrl = 'http://localhost:8080/api/csv/';
-  id: string;
-
   constructor(private httpClient: HttpClient) { }
 
   public uploadfile(payload: any): Observable<any> {
-
-    return this.httpClient.post(this.baseUrl + 'upload', payload);
+    return this.httpClient.post(`${API_URLS.UPLOAD_FILE}`, payload);
   }
+
   getItem(payload: IGetItem): Observable<any> {
-    return this.httpClient.post(this.baseUrl + 'item', payload);
+    return this.httpClient.post(`${API_URLS.ITEM_MASTER}`, payload);
   }
 
   public getProject(): Observable<any> {
-
-    return this.httpClient.get(this.baseUrl + 'project');
+    return this.httpClient.get(`${API_URLS.PROJECT}`);
   }
 
   public getCustomer(): Observable<any> {
-
-    return this.httpClient.get(this.baseUrl + 'customer');
+    return this.httpClient.get(`${API_URLS.CUSTOMER}`);
   }
 
   getPackagingType(): Observable<any> {
-    return this.httpClient.get(this.baseUrl + 'packagingtype');
+    return this.httpClient.get(`${API_URLS.PACKAGING_TYPE}`);
   }
 
   getCountry(): Observable<any> {
-    return this.httpClient.get(this.baseUrl + 'country');
+    return this.httpClient.get(`${API_URLS.COUNTRY}`);
   }
 
   getBomById(id: any): Observable<any> {
     console.log(id);
-    console.log(this.baseUrl + 'bombyid/' + id)
-    return this.httpClient.get(this.baseUrl + 'bombyid/' + id);
+    console.log(`${API_URLS.GET_BOMBY_ID(id)}`)
+    return this.httpClient.get(`${API_URLS.GET_BOMBY_ID(id)}`);
   }
 
 }

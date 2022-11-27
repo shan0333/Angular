@@ -7,6 +7,7 @@ import { formatCurrency } from '@angular/common';
 import { columns } from './data-table-config';
 import { SortType } from '@swimlane/ngx-datatable';
 import { IGetItem } from '../interfaces/http-request-payload';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Component({
@@ -45,7 +46,12 @@ export class ItemMasterComponent implements OnInit {
     { firstName: 'Tanya', lastName: 'Blake', age: '47', salary: 8000 }
   ];
 
-  constructor(private itemService: ItemserviceService, private httpClient: HttpClient, private fb: FormBuilder) {
+  constructor(
+    private itemService: ItemserviceService,
+    private httpClient: HttpClient,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {
     this.userForm = this.fb.group({
 
       containers: this.fb.array([
@@ -71,6 +77,7 @@ export class ItemMasterComponent implements OnInit {
     this.getPackagingType();
     this.getCountry();
   }
+
   closePopup() {
     $('#createItemModal').modal('hide');
   }
@@ -88,19 +95,25 @@ export class ItemMasterComponent implements OnInit {
     console.log(JSON.stringify(this.item));
     console.log(this.userForm.value);
     if (this.selectedFile) {
-      this.itemService.uploadfile(payload).subscribe(data => {
-        console.log(data)
-
-        this.userForm.reset();
-      },
-        error => console.log(error));
+      this.itemService.uploadfile(payload).subscribe(
+        {
+          next: data => {
+            this.toastr.success('Created Successfully!!!');
+            console.log(data);
+            this.userForm.reset();
+            this.getItem();
+            this.closePopup();
+          },
+          error: error => {
+            console.log(error);
+            this.toastr.error('Service failed to create the Record!!!. Please try again later.');
+          }
+        });
     }
 
     else {
-      alert("Please select a file first")
+      alert("Please select a file first");
     }
-    this.getItem();
-
   }
 
   getItem() {
