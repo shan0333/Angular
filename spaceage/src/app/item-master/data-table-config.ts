@@ -1,7 +1,7 @@
 export const columns = [
     {
         name: 'No',
-        prop: 'item_id',
+        prop: 'serial_no',
         width: 150
     },
     {

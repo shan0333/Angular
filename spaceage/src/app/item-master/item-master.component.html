@@ -27,9 +27,10 @@
         [offset]="page.pageNumber" [limit]="page.size" (page)="setPage($event)" [externalSorting]="true" [loadingIndicator]="loading" (sort)="onSort($event)">
         <ng-container *ngFor="let col of cols;">
             <ngx-datatable-column [resizeable]="false" [name]="col.name" [prop]="col.prop" [width]="col.width">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span *ngIf="col.prop == 'item_id'"><a style="text-decoration: none;" routerLink="/partlist" [queryParams]="{lotNo: value}">{{value}}</a></span>
-                    <span *ngIf="col.prop != 'item_id'">{{ value }}</span>
+                <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span *ngIf="col.prop == 'lot_ref_no'"><a style="text-decoration: none;" routerLink="/partlist" [queryParams]="{lotNo: value}">{{value}}</a></span>
+                    <span *ngIf="col.prop == 'serial_no'">{{rowIndex + 1}}</span>
+                    <span *ngIf="col.prop != 'lot_ref_no' && col.prop != 'serial_no'">{{ value }}</span>
                 </ng-template>
             </ngx-datatable-column>
         </ng-container>
