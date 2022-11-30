@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ItemserviceService } from 'src/app/services/itemservice.service';
 import { HttpClient } from '@angular/common/http';
-import { ItemMaster } from '../itemmaster';
-import { FormGroup, FormBuilder, FormArray, AbstractControl, FormControl } from '@angular/forms';
-import { formatCurrency } from '@angular/common';
-import { columns } from './data-table-config';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SortType } from '@swimlane/ngx-datatable';
-import { IGetItem } from '../interfaces/http-request-payload';
 import { ToastrService } from 'ngx-toastr';
+import { ItemserviceService } from 'src/app/services/itemservice.service';
+import { itemMasterColumns } from '../config/data-table-config';
+import { IGetItem } from '../interfaces/http-request-payload';
+import { ItemMaster } from '../itemmaster';
 declare var $: any;
 
 @Component({
@@ -24,7 +23,7 @@ export class ItemMasterComponent implements OnInit {
   packagingTypeList: Array<any> = [];
   countryList: Array<any> = [];
   itemList: Array<any> = [];
-  cols = [...columns];
+  cols = [...itemMasterColumns];
   sortType = SortType.single;
   page = {
     totalElements: 0,
@@ -98,7 +97,7 @@ export class ItemMasterComponent implements OnInit {
       this.itemService.uploadfile(payload).subscribe(
         {
           next: data => {
-            this.toastr.success('Created Successfully!!!');
+            this.toastr.success(data?.message);
             console.log(data);
             this.userForm.reset();
             this.getItem();
@@ -106,7 +105,7 @@ export class ItemMasterComponent implements OnInit {
           },
           error: error => {
             console.log(error);
-            this.toastr.error('Service failed to create the Record!!!. Please try again later.');
+            this.toastr.error(error?.error?.message);
           }
         });
     }

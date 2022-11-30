@@ -1,45 +1,58 @@
-<!DOCTYPE html>   
-<html lang="en">   
-<head>   
-<meta charset="utf-8">   
-<title>Final Output</title>   
-<meta name="description" content="Bootstrap.">  
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
-<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en"> -->
 
-<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<!-- <head>
+    <meta charset="utf-8">
+    <title>Final Output</title>
+    <meta name="description" content="Bootstrap.">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
 
 
-</head>  
-<body style="margin:20px auto">  
-    <div class="container">
-        <div class="row header" style="text-align:center;color:green"></div>
-          <table id="myTable" class="table table-striped">
-            <thead>
+</head> -->
+
+<!-- <body style="margin:20px auto"> -->
+<div>
+    <ngx-datatable class="bootstrap" id="part-list" [rows]="partList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [scrollbarH]="true" [reorderable]="false" [sortType]="sortType" [externalPaging]="true" [count]="page.totalElements"
+        [offset]="page.pageNumber" [limit]="page.size" (page)="setPage($event)" [externalSorting]="true" [loadingIndicator]="loading" (sort)="onSort($event)">
+        <ng-container *ngFor="let col of cols;">
+            <ngx-datatable-column [resizeable]="false" [name]="col.name" [prop]="col.prop" [width]="col.width">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span *ngIf="col.prop != 'part-label'">{{ value }}</span>
+                    <span *ngIf="col.prop == 'part-label'"><a routerLink="/barcode" (click)="passObject(row)">PartLabel</a></span>
+                </ng-template>
+            </ngx-datatable-column>
+        </ng-container>
+    </ngx-datatable>
+
+    <table *ngIf="false" id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Position</th>
+                <th>Part No</th>
+                <th>Description</th>
+                <th>Packing Group</th>
+                <th>Store Location</th>
+                <th>Validity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let p of partList">
                 <tr>
-                    <th>#</th>
-                    <th>Position</th>
-                    <th>Part No</th>
-                    <th>Description</th>
-                    <th>Packing Group</th>
-                    <th>Store Location</th>
-                    <th>Validity</th>
-                </tr>
-            </thead>
-            <tbody>
-                <ng-container *ngFor="let p of partList">
-                    <tr>
-                        <td>{{p.bomId}}</td>
-                        <td></td>
-                        <td>{{p.partNo}}</td>
-                        <td>{{p.partDescription}}</td>
-                        <td>{{p.packingGroup}}</td>
-                        <td>{{p.stLoction}}</td>
-                        <td>{{p.validity}}</td>
-                        <td><a routerLink="/barcode" (click)="passObject(p)">PartLabel</a></td>
+                    <td>{{p.bomId}}</td>
+                    <td></td>
+                    <td>{{p.partNo}}</td>
+                    <td>{{p.partDescription}}</td>
+                    <td>{{p.packingGroup}}</td>
+                    <td>{{p.stLoction}}</td>
+                    <td>{{p.validity}}</td>
+                    <td><a routerLink="/barcode" (click)="passObject(p)">PartLabel</a></td>
                     <!--<td>{{p.itemMasterId}}</td>
                     <td>{{p.version}}</td>
                     <td>{{p.catDescription}}</td>
@@ -60,105 +73,101 @@
                     <td>{{p.modifiedBy}}</td>
                     <td>{{p.modifiedDate}}</td>
                     <td>{{p.status}}</td>-->
-                    </tr>
-                 
-                </ng-container>
-            </tbody>
-        </table>
+                </tr>
 
-        <!-- The Modal -->
-        <div class="modal"
-             tabindex="-1"
-             role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="width: 750px !important; ">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Create New Record</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container py-5">
-                            <div class="row">
-                                <div class="col-md-10 mx-auto">
-                                    <form>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="projectCode" placeholder="Project Code">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="lotSize" placeholder="Lot Size">
-                                            </div>
+            </ng-container>
+        </tbody>
+    </table>
+
+    <!-- The Modal -->
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 750px !important; ">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create New Record</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container py-5">
+                        <div class="row">
+                            <div class="col-md-10 mx-auto">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="projectCode" placeholder="Project Code">
                                         </div>
-                                        <div class="form-group row">
-
-                                            <div class="col-sm-6">
-                                                <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="customerCode" placeholder="Customer Code">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="inputState">Customer Login<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="customerLogin" placeholder="Customer Login">
-                                            </div>
-
+                                        <div class="col-sm-6">
+                                            <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="lotSize" placeholder="Lot Size">
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="originCountry" placeholder="Origin Country">
-                                            </div>
+                                    </div>
+                                    <div class="form-group row">
 
-                                            <div class="col-sm-6">
-                                                <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
-                                                <input type="file" class="form-control" id="inputPostalCode" placeholder="Upload File">
-                                            </div>
-
-
+                                        <div class="col-sm-6">
+                                            <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="customerCode" placeholder="Customer Code">
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="packagingType" placeholder="Packaging Type">
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No">
-                                            </div>
-
-
+                                        <div class="col-sm-6">
+                                            <label for="inputState">Customer Login<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="customerLogin" placeholder="Customer Login">
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="containers" placeholder="Containers">
-                                            </div>
 
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="originCountry" placeholder="Origin Country">
                                         </div>
-                                        <button type="button" class="btn btn-primary px-4 float-right margin-align">Add</button>
-                                    </form>
-                                </div>
+
+                                        <div class="col-sm-6">
+                                            <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
+                                            <input type="file" class="form-control" id="inputPostalCode" placeholder="Upload File">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="packagingType" placeholder="Packaging Type">
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="containers" placeholder="Containers">
+                                        </div>
+
+                                    </div>
+                                    <button type="button" class="btn btn-primary px-4 float-right margin-align">Add</button>
+                                </form>
                             </div>
                         </div>
+                    </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success">
-                            Create
-                        </button>
-                        <button type="button" class="btn btn-danger"
-                                (click)="closePopup()">
-                            Close
-                        </button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">
+            Create
+          </button>
+                    <button type="button" class="btn btn-danger" (click)="closePopup()">
+            Close
+          </button>
                 </div>
             </div>
         </div>
     </div>
-
-  
-</body>  
+</div>
 
 
-</html>  
+<!-- </body> -->
 
+
+<!-- </html> -->

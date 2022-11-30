@@ -1,4 +1,4 @@
-export const columns = [
+export const itemMasterColumns = [
     {
         name: 'No',
         prop: 'serial_no',
@@ -44,4 +44,47 @@ export const columns = [
         prop: 'country',
         width: 200
     },
+]
+
+export const partListColumns = [
+    {
+        name: '#',
+        prop: 'bomNo',
+        width: 150
+    },
+    {
+        name: 'Position',
+        prop: 'position',
+        width: 150
+    },
+    {
+        name: 'Part No',
+        prop: 'partNo',
+        width: 150
+    },
+    {
+        name: 'Description',
+        prop: 'partDescription',
+        width: 300
+    },
+    {
+        name: 'Packing Group',
+        prop: 'packingGroup',
+        width: 150
+    },
+    {
+        name: 'Store Location',
+        prop: 'stLoction',
+        width: 150
+    },
+    {
+        name: 'Validity',
+        prop: 'validity',
+        width: 150
+    },
+    {
+        name: 'PartLabel',
+        prop: 'part-label',
+        width: 170
+    }
 ]
