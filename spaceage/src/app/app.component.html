@@ -12,32 +12,35 @@
 </head>
 
 <body>
-
-    <div class="container-fluid">
-        <app-main-header></app-main-header>
-        <!-- <div class="container-fluid"> -->
-        <!-- <div class="row"> -->
-        <!-- <div class="col-lg-2"> -->
-        <div class="sidebar">
-            <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
-            <!-- <div style="text-align: center;margin-top:1rem; font-weight: 400;">Packaging Solutions</div>-->
-            <!--<a routerLink="partlist">Part List</a>-->
-            <a routerLink="item-master" routerLinkActive="active">Item Master</a>
-            <a href="#about">Project Code</a>
-            <a href="#about">User Setup</a>
-            <a href="#about">Image Upload</a>
-            <a href="#about">Scanner</a>
-            <a href="#about">Gun Scanner</a>
+    <ng-container *ngIf="renderWholePage; else defaultOutlet;">
+        <router-outlet></router-outlet>
+    </ng-container>
+    <ng-template #defaultOutlet>
+        <div class="container-fluid">
+            <app-main-header></app-main-header>
+            <!-- <div class="container-fluid"> -->
+            <!-- <div class="row"> -->
+            <!-- <div class="col-lg-2"> -->
+            <div class="sidebar">
+                <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+                <!-- <div style="text-align: center;margin-top:1rem; font-weight: 400;">Packaging Solutions</div>-->
+                <!--<a routerLink="partlist">Part List</a>-->
+                <a routerLink="item-master" routerLinkActive="active">Item Master</a>
+                <a href="#about">Project Code</a>
+                <a href="#about">User Setup</a>
+                <a href="#about">Image Upload</a>
+                <a href="#about">Scanner</a>
+                <a href="#about">Gun Scanner</a>
+            </div>
+            <!-- </div> -->
+            <div style="margin-left: 250px;">
+                <app-rightside-header></app-rightside-header>
+                <router-outlet></router-outlet>
+            </div>
+            <!-- </div> -->
+            <!-- </div> -->
         </div>
-        <!-- </div> -->
-        <div style="margin-left: 250px;">
-            <app-rightside-header></app-rightside-header>
-            <router-outlet></router-outlet>
-        </div>
-        <!-- </div> -->
-        <!-- </div> -->
-    </div>
-
+    </ng-template>
 </body>
 
 </html>

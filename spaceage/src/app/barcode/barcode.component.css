@@ -53,3 +53,10 @@
     color: #a5aec0
 }
 */
+
+@media print {
+    .barcode-container {
+        page-break-inside: avoid;
+        /* page-break-after: avoid; */
+    }
+}

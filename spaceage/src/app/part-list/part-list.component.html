@@ -24,7 +24,7 @@
             <ngx-datatable-column [resizeable]="false" [name]="col.name" [prop]="col.prop" [width]="col.width">
                 <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span *ngIf="col.prop != 'part-label'">{{ value }}</span>
-                    <span *ngIf="col.prop == 'part-label'"><a routerLink="/barcode" (click)="passObject(row)">PartLabel</a></span>
+                    <span *ngIf="col.prop == 'part-label'"><a routerLink="/barcode" (click)="onClickPartLabel(row)">PartLabel</a></span>
                 </ng-template>
             </ngx-datatable-column>
         </ng-container>

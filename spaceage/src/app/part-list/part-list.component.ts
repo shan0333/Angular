@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SortType } from '@swimlane/ngx-datatable';
 import { ItemserviceService } from 'src/app/services/itemservice.service';
 import { partListColumns } from '../config/data-table-config';
+import { GlobalDataService } from '../services/global-data.service';
 
 @Component({
   selector: 'app-part-list',
@@ -26,7 +27,11 @@ export class PartListComponent implements OnInit {
   }
   loading = false;
 
-  constructor(private route: ActivatedRoute, private itemService: ItemserviceService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private itemService: ItemserviceService,
+    private globalDataService: GlobalDataService
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -54,8 +59,9 @@ export class PartListComponent implements OnInit {
       error => console.log(error));
   }
 
-  passObject(i: any) {
-    localStorage.setItem('list', JSON.stringify(i));
+  onClickPartLabel(partDetails: any) {
+    this.globalDataService.partDetails$.next(partDetails);
+    localStorage.setItem('list', JSON.stringify(partDetails));
   }
 
   setPage(event: any) {
