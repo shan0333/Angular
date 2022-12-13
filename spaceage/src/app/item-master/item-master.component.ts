@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemserviceService } from 'src/app/services/itemservice.service';
 import { HttpClient } from '@angular/common/http';
-import { ItemMaster } from '../itemmaster';
+import { ItemMaster } from 'src/app/models/itemmaster';
 import { FormGroup, FormBuilder, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { formatCurrency } from '@angular/common';
 import { columns } from './data-table-config';
@@ -39,12 +39,7 @@ export class ItemMasterComponent implements OnInit {
 
   item: ItemMaster = new ItemMaster();
   userForm: FormGroup;
-  groups = [
-    { firstName: 'John', lastName: 'Doe', age: '35', salary: 5000 },
-    { firstName: 'Michael', lastName: 'Smith', age: '39', salary: 5000 },
-    { firstName: 'Michael', lastName: 'Jordan', age: '45', salary: 7000 },
-    { firstName: 'Tanya', lastName: 'Blake', age: '47', salary: 8000 }
-  ];
+ 
 
   constructor(
     private itemService: ItemserviceService,
@@ -92,21 +87,20 @@ export class ItemMasterComponent implements OnInit {
     this.item.containers = this.userForm.value.containers;
     payload.append('item', JSON.stringify(this.item));
     payload.append('file', this.selectedFile);
-    console.log(JSON.stringify(this.item));
-    console.log(this.userForm.value);
+    
     if (this.selectedFile) {
       this.itemService.uploadfile(payload).subscribe(
         {
           next: data => {
             this.toastr.success('Created Successfully!!!');
-            console.log(data);
+           
             this.userForm.reset();
             this.getItem();
             this.closePopup();
           },
           error: error => {
-            console.log(error);
-            this.toastr.error('Service failed to create the Record!!!. Please try again later.');
+            
+            this.toastr.error('Lot Ref No Already Present!!.');
           }
         });
     }
@@ -132,7 +126,7 @@ export class ItemMasterComponent implements OnInit {
         },
         error: error => {
           this.loading = false;
-          console.log(error);
+         
         }
       });
   }

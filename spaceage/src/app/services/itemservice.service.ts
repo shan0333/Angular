@@ -9,36 +9,52 @@ import { IGetItem } from '../interfaces/http-request-payload';
 })
 export class ItemserviceService {
 
+   //ROOT_URI: String = "http://spaceageapp-env.eba-kay2h5cj.us-east-2.elasticbeanstalk.com/api/"
+
+ ROOT_URI:String ="http://localhost:5000/api/"
+
   constructor(private httpClient: HttpClient) { }
 
   public uploadfile(payload: any): Observable<any> {
-    return this.httpClient.post(`${API_URLS.UPLOAD_FILE}`, payload);
+      return this.httpClient.post(this.ROOT_URI + "upload", payload);
   }
 
   getItem(payload: IGetItem): Observable<any> {
-    return this.httpClient.post(`${API_URLS.ITEM_MASTER}`, payload);
+      return this.httpClient.post(this.ROOT_URI + "item-master", payload);
   }
 
   public getProject(): Observable<any> {
-    return this.httpClient.get(`${API_URLS.PROJECT}`);
+      return this.httpClient.get(this.ROOT_URI + "project");
   }
 
   public getCustomer(): Observable<any> {
-    return this.httpClient.get(`${API_URLS.CUSTOMER}`);
+      return this.httpClient.get(this.ROOT_URI + "customer");
   }
 
   getPackagingType(): Observable<any> {
-    return this.httpClient.get(`${API_URLS.PACKAGING_TYPE}`);
+      return this.httpClient.get(this.ROOT_URI + "packagingtype");
   }
 
   getCountry(): Observable<any> {
-    return this.httpClient.get(`${API_URLS.COUNTRY}`);
+      return this.httpClient.get(this.ROOT_URI + "country");
   }
 
   getBomById(id: any): Observable<any> {
-    console.log(id);
-    console.log(`${API_URLS.GET_BOMBY_ID(id)}`)
-    return this.httpClient.get(`${API_URLS.GET_BOMBY_ID(id)}`);
+      return this.httpClient.get(this.ROOT_URI + "bombyid/" + id);
   }
 
+    gunScanner(barcode: any, value: any): Observable<any> {
+        return this.httpClient.get(this.ROOT_URI + "gunscanner/" + barcode +"/"+value);
+  }
+
+  project(payload: any): Observable<any> {
+      return this.httpClient.post(this.ROOT_URI + "createProject", payload);
+  }
+
+  customer(payload: any): Observable<any> {
+        return this.httpClient.post(this.ROOT_URI + "createCustomer", payload);
+  }
+  getLotRefNo(): Observable<any> {
+        return this.httpClient.get(this.ROOT_URI + "lotrefno");
+  }
 }

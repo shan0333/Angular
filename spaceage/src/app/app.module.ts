@@ -15,6 +15,14 @@ import { BarcodeComponent } from './barcode/barcode.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { PicklableComponent } from './picklable/picklable.component';
+import { GunscannerComponent } from './gunscanner/gunscanner.component';
+import { NgxPrintModule } from 'ngx-print';
+/*import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';*/
+import { ProjectComponent } from './project/project.component';
+import { CustomerComponent } from './customer/customer.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @NgModule({
   declarations: [
@@ -24,7 +32,13 @@ import { ToastrModule } from 'ngx-toastr';
     DashboardComponent,
     RightsideHeaderComponent,
     MainHeaderComponent,
-    BarcodeComponent
+    BarcodeComponent,
+    PicklableComponent,
+    GunscannerComponent,
+    /*LoginComponent,
+    LogoutComponent,*/
+    ProjectComponent,
+    CustomerComponent
 
   ],
   imports: [
@@ -39,7 +53,8 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true
     }),
     NgxBarcodeModule,
-    NgxDatatableModule
+      NgxDatatableModule,
+      NgxPrintModule
   ],
   providers: [Location],
   bootstrap: [AppComponent]

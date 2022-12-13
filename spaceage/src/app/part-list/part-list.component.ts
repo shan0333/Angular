@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemserviceService } from 'src/app/services/itemservice.service';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'; 
 
 @Component({
   selector: 'app-part-list',
@@ -8,7 +9,7 @@ import { ItemserviceService } from 'src/app/services/itemservice.service';
   styleUrls: ['./part-list.component.css']
 })
 export class PartListComponent implements OnInit {
-
+    faCoffee = faCoffee; 
     lotRefNo: any;
     partList: Array<any> = [];
     
@@ -36,7 +37,7 @@ export class PartListComponent implements OnInit {
   getBomById() {
      this.itemService.getBomById(this.lotRefNo.lotNo).subscribe(data => {
          this.partList = data;
-
+         localStorage.setItem('picklable', JSON.stringify(this.partList));
      },
         error => console.log(error));
     }

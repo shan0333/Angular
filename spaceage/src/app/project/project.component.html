@@ -1,0 +1,104 @@
+<div class="col-lg-10">
+
+    <div class="card card-custom example example-compact">
+        <div class="card-header">
+            <h3 class="card-title">Create Project code</h3>
+        </div>
+        <div class="card-body">
+            <form class="form" method="post">
+                <input type="hidden" name="_token" value="ZkLlNji1q5wvBAQS4p8b7dwgLdrQAD9qaFq3MDRe">                    <div class="mb-2">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>project code*</label>
+                            <input type="text" name="project_code" [(ngModel)]="pro.project_code" class="form-control" placeholder="Enter project code" required="" value="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>project name*</label>
+                            <input type="text" name="project_name" [(ngModel)]="pro.project_name" class="form-control" placeholder="Enter project name" required="" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>project location*</label>
+                            <input type="text" name="project_location" [(ngModel)]="pro.project_location" class="form-control" placeholder="Enter project location" required="" value="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>city*</label>
+                            <input type="text" name="city" [(ngModel)]="pro.city" class="form-control" placeholder="city" required="" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>postal_code*</label>
+                            <input type="text" name="postal_code" [(ngModel)]="pro.postal_code" class="form-control" placeholder="Enter postal code" required="" value="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>state</label>
+                            <input type="text" name="state" [(ngModel)]="pro.state" class="form-control" placeholder="state" required="" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>country*</label>
+                            <input type="text" name="country" [(ngModel)]="pro.country" class="form-control" placeholder="Enter country" required="" value="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>destination_location*</label>
+                            <input type="text" name="destination_location" [(ngModel)]="pro.destination_location" class="form-control" placeholder="destination location" required="" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>buyername*</label>
+                            <input type="text" name="buyername" [(ngModel)]="pro.buyername" class="form-control" placeholder="Enter buyer name" required="" value="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Designation*</label>
+                            <input type="text" name="designation" [(ngModel)]="pro.designation" class="form-control" placeholder="Enter designation" required="" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>telephone</label>
+                            <input type="text" name="telephone" [(ngModel)]="pro.telephone" class="form-control" placeholder="Enter phone" value="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>mobile*</label>
+                            <input type="number" name="mobile" [(ngModel)]="pro.mobile" class="form-control" placeholder="Enter mobile number" required="" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>email</label>
+                            <input type="email" name="email" [(ngModel)]="pro.email" class="form-control" placeholder="Enter email address" value="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Web Address</label>
+                            <input type="text" name="web_address" [(ngModel)]="pro.web_address" class="form-control" placeholder="Enter web address" value="">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-3 ml-lg-auto">
+                    <button type="submit" class="btn btn-primary font-weight-bold mr-2" (click)="createProject()">Create</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
