@@ -18,11 +18,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { PicklableComponent } from './picklable/picklable.component';
 import { GunscannerComponent } from './gunscanner/gunscanner.component';
 import { NgxPrintModule } from 'ngx-print';
-/*import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';*/
+//import { LoginComponent } from './login/login.component';
+/*import { LogoutComponent } from './logout/logout.component';*/
 import { ProjectComponent } from './project/project.component';
 import { CustomerComponent } from './customer/customer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+/*import { NgDynamicBreadcrumbModule } from 'ng-dynamic-breadcrumb';*/
 
 @NgModule({
   declarations: [
@@ -35,8 +36,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
     BarcodeComponent,
     PicklableComponent,
     GunscannerComponent,
-    /*LoginComponent,
-    LogoutComponent,*/
+   // LoginComponent,
+    /*LogoutComponent,*/
     ProjectComponent,
     CustomerComponent
 
@@ -54,7 +55,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
     }),
     NgxBarcodeModule,
       NgxDatatableModule,
-      NgxPrintModule
+      NgxPrintModule,
+      FontAwesomeModule,
+      /*NgDynamicBreadcrumbModule*/
   ],
   providers: [Location],
   bootstrap: [AppComponent]

@@ -18,7 +18,7 @@ export class BarcodeComponent implements OnInit {
 		this.partList.push(localStorage.getItem("list"));
 		this.barcodeListFirst.push(JSON.parse(this.partList));
 		this.barcodeListFirst[0].totalNoOfPackingGroup
-		if (this.barcodeListFirst[0].totalNoOfPackingGroup >1) {
+		if (this.barcodeListFirst[0].totalNoOfPackingGroup >0) {
 			for (let i = 0; i < this.barcodeListFirst[0].totalNoOfPackingGroup; i++) {	
 				this.barcodeList.push(JSON.parse(this.partList));
 				this.barcodeList[i].barCodeNo = this.barcodeList[i].partNo + this.barcodeList[i].bomId;// +"/"+ (i+1) + this.barcodeListFirst[0].totalNoOfPackingGroup;

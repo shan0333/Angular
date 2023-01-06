@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemserviceService } from 'src/app/services/itemservice.service';
 import { Gunscanner } from '../models/gunscanner';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
-  selector: 'app-gunscanner',
-  templateUrl: './gunscanner.component.html',
-  styleUrls: ['./gunscanner.component.css']
+    selector: 'app-gunscanner',
+    templateUrl: './gunscanner.component.html',
+    styleUrls: ['./gunscanner.component.css']
 })
 export class GunscannerComponent implements OnInit {
     lotRefNo: any;
@@ -15,30 +17,35 @@ export class GunscannerComponent implements OnInit {
     radioItems: Array<string> | undefined;
     model = { option: 'Pick Label' };
 
-    constructor(private itemService: ItemserviceService) {
+    constructor(private itemService: ItemserviceService, private toastr: ToastrService,) {
         this.radioItems = ['Pick Label', 'Part Label'];
     }
 
     ngOnInit(): void {
-        this.getLotRefNo();
+
     }
-    parcodeScan() {
+    barcodeScan() {
         this.gun.value = this.model.option;
         if (this.gun.value == "Pick Label") {
             this.gun.value = "pick"
         } else {
             this.gun.value = "part"
         }
-        this.itemService.gunScanner(this.gun.barcode, this.gun.value).subscribe(data => {    
-      },
-          error => console.log(error));
-    }
+        this.itemService.gunScanner(this.gun.barcode, this.gun.value).subscribe({
+            next: res => {
+                this.toastr.success(res.message);
+            },
+            error: error => {
+                this.toastr.error(error.error.message);
+            }
+        });
 
-    getLotRefNo() {
+    }
+   /* getLotRefNo() {
       this.itemService.getLotRefNo().subscribe(data => {
       this.lotRefNo = data;
 
      },
          error => console.log(error));
-   }
+   }*/
  }

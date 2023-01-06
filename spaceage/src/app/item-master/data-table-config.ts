@@ -10,6 +10,11 @@ export const columns = [
         width: 150
     },
     {
+        name: 'Report',
+        prop: 'report',
+        width: 100
+    },
+    {
         name: 'Customer Code',
         prop: 'customer_code',
         width: 150
@@ -43,5 +48,6 @@ export const columns = [
         name: 'Destination Customer Name',
         prop: 'country',
         width: 200
-    },
+    }
+    
 ]

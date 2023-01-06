@@ -1,4 +1,4 @@
-<!DOCTYPE html>   
+<!--<!DOCTYPE html>   
 <html lang="en">   
 <head>   
 <meta charset="utf-8">   
@@ -11,10 +11,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
-
-
 </head>  
-<body style="margin:20px auto">
+<body style="margin:20px auto">-->
     <div style="margin-top: 16px; display: flex;">
         <span style="margin-right: auto; font-weight: bold;">Bill of Material</span>
         <button type="button" class="btn btn-primary"> <a target="_blank" routerLink="/picklable" style="color: aliceblue;">Pick Lable</a></button>
@@ -24,20 +22,23 @@
         <table id="myTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Bom No</th>
                     <th>Status</th>
-                    <th>Qty Scanned</th>
+                    <th>Qty Scanned/Total no of Packing Grp</th>
                     <th>Part No</th>
                     <th>Description</th>
                     <th>Packing Group</th>
                     <th>Store Location</th>
                     <th>Validity</th>
+                    <th>Part Label</th>
+                    <th>Case Report</th>
+
                 </tr>
             </thead>
             <tbody>
                 <ng-container *ngFor="let p of partList">
                     <tr>
-                        <td>{{p.bomId}}</td>
+                        <td>{{p.bomNo}}</td>
                         <td [ngStyle]="{'background-color': p.colorCode}">{{p.labelStatus}}</td>
                         <td>{{p.totalPartScanned}}</td>
                         <td>{{p.partNo}}</td>
@@ -45,84 +46,47 @@
                         <td>{{p.packingGroup}}</td>
                         <td>{{p.stLoction}}</td>
                         <td>{{p.validity}}</td>
-                        <td *ngIf="p.enablePartLabel"><a routerLink="/barcode" (click)="passObject(p)">PartLabel</a></td>
-                        <td *ngIf="!p.enablePartLabel">Yet to be</td>
+                        <td *ngIf="p.enablePartLabel"><a style="color: forestgreen; " routerLink="/barcode" (click)="passObject(p)"><fa-icon [icon]="faBarcode"></fa-icon></a></td>
+                        <td *ngIf="!p.enablePartLabel">Pick Label Yet to be Scan</td>
+                        <!--*ngIf="p.enablePartLabel"-->
+                        <td *ngIf="p.enablePartLabel"><a style="color: forestgreen; " (click)="openPopup(p)"><fa-icon [icon]="faFileDownload"></fa-icon></a></td>
+                        <td *ngIf="!p.enablePartLabel">-</td> 
+
                     </tr>
 
                 </ng-container>
             </tbody>
         </table>
 
+
+
         <!-- The Modal -->
-        <div class="modal"
-             tabindex="-1"
-             role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="width: 750px !important; ">
+        <div class="modal fade" id="createItemModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Create New Record</h4>
+                        <h4 class="modal-title">Add Weight</h4>
                     </div>
                     <div class="modal-body">
                         <div class="container py-5">
                             <div class="row">
                                 <div class="col-md-10 mx-auto">
-                                    <form>
+                                    <form name="fileupload">
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="projectCode" placeholder="Project Code">
+                                                <label for="inputCity">Net Weight<span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" name="net" placeholder="Net Weight" [(ngModel)]="case.netWeight">
                                             </div>
                                             <div class="col-sm-6">
-                                                <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="lotSize" placeholder="Lot Size">
+                                                <label for="inputCity">Gross Weight <span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" name="gross"  placeholder="Gross Weight" [(ngModel)]="case.grossWeight">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-
-                                            <div class="col-sm-6">
-                                                <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="customerCode" placeholder="Customer Code">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="inputState">Customer Login<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="customerLogin" placeholder="Customer Login">
-                                            </div>
-
+                                        <div>
+                                            <button type="button" (click)="createNewRecord(case,bomObject)" class="btn btn-success">
+                                                Update & Download
+                                            </button>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="originCountry" placeholder="Origin Country">
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
-                                                <input type="file" class="form-control" id="inputPostalCode" placeholder="Upload File">
-                                            </div>
-
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="packagingType" placeholder="Packaging Type">
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No">
-                                            </div>
-
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="containers" placeholder="Containers">
-                                            </div>
-
-                                        </div>
-                                        <button type="button" class="btn btn-primary px-4 float-right margin-align">Add</button>
                                     </form>
                                 </div>
                             </div>
@@ -130,22 +94,12 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">
-                            Create
-                        </button>
-                        <button type="button" class="btn btn-danger"
-                                (click)="closePopup()">
+
+                        <button type="button" class="btn btn-danger" (click)="closePopup()">
                             Close
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-</body>  
-
-
-</html>  
 

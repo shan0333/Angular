@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
 import { ItemserviceService } from 'src/app/services/itemservice.service';
 import { HttpClient } from '@angular/common/http';
 import { ItemMaster } from 'src/app/models/itemmaster';
@@ -8,6 +8,12 @@ import { columns } from './data-table-config';
 import { SortType } from '@swimlane/ngx-datatable';
 import { IGetItem } from '../interfaces/http-request-payload';
 import { ToastrService } from 'ngx-toastr';
+import * as saveAs from 'file-saver';
+import { formatDate } from '@angular/common';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+
 declare var $: any;
 
 @Component({
@@ -16,6 +22,10 @@ declare var $: any;
   styleUrls: ['./item-master.component.css']
 })
 export class ItemMasterComponent implements OnInit {
+    faFileDownload = faDownload;
+    faPlusSquare = faPlusCircle;
+    faMinusCircle = faMinusCircle;
+    curr = formatDate(new Date(), 'dd-MM-yyyy', this.locale);
   selectedFile: any = null;
   resData: any;
   dataList: Array<any> = [];
@@ -45,8 +55,9 @@ export class ItemMasterComponent implements OnInit {
     private itemService: ItemserviceService,
     private httpClient: HttpClient,
     private fb: FormBuilder,
-    private toastr: ToastrService
-  ) {
+    private toastr: ToastrService,
+    @Inject(LOCALE_ID) public locale: string) { 
+  
     this.userForm = this.fb.group({
 
       containers: this.fb.array([
@@ -92,7 +103,7 @@ export class ItemMasterComponent implements OnInit {
       this.itemService.uploadfile(payload).subscribe(
         {
           next: data => {
-            this.toastr.success('Created Successfully!!!');
+            this.toastr.success(data.message);
            
             this.userForm.reset();
             this.getItem();
@@ -100,7 +111,7 @@ export class ItemMasterComponent implements OnInit {
           },
           error: error => {
             
-            this.toastr.error('Lot Ref No Already Present!!.');
+            this.toastr.error(error.error.message);
           }
         });
     }
@@ -188,6 +199,12 @@ export class ItemMasterComponent implements OnInit {
     this.sort.sortByColumn = sortObj?.prop;
     this.sort.sortByMode = sortObj?.dir;
     this.getItem();
+    }
+
+    fileDownload(value: any) {
+        
+      this.itemService.fileDownload(value).subscribe(
+          blob => saveAs(blob, 'Bill_of_Material_Report_'+value+"_" + this.curr + '.xlsx'));
   }
 
 }

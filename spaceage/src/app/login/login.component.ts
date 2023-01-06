@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 //import { AuthenticationService } from '../services/authentication.service';
 
@@ -19,12 +19,12 @@ export class LoginComponent implements OnInit {
     }
 
     checkLogin() {
-        /*if (this.loginservice.authenticate(this.username, this.password)
+        *//*if (this.loginservice.authenticate(this.username, this.password)
         ) {
             this.router.navigate([''])
             this.invalidLogin = false
         } else
-            this.invalidLogin = true*/
+            this.invalidLogin = true*//*
     }
 
-}
+}*/

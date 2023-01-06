@@ -30,45 +30,18 @@
     <ng-container *ngFor="let col of cols;">
       <ngx-datatable-column [resizeable]="false" [name]="col.name" [prop]="col.prop" [width]="col.width">
         <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-          <span *ngIf="col.prop == 'lot_ref_no'"><a style="text-decoration: none;" routerLink="/partlist"
-              [queryParams]="{lotNo: value}">{{value}}</a></span>
-          <span *ngIf="col.prop == 'serial_no'">{{rowIndex + 1}}</span>
-          <span *ngIf="col.prop != 'lot_ref_no' && col.prop != 'serial_no'">{{ value }}</span>
+          <span *ngIf="col.prop == 'lot_ref_no'"><a style="text-decoration: none;" routerLink="/partlist" [queryParams]="{lotNo: value}">{{value}}</a></span>
+          <span *ngIf="col.prop == 'report'"><button style="text-decoration: none;" (click)="fileDownload(value)"><fa-icon [icon]="faFileDownload"></fa-icon></button>    </span>
+
+              <span *ngIf="col.prop == 'serial_no'">{{rowIndex + 1}}</span>
+              <span *ngIf="col.prop != 'lot_ref_no' && col.prop != 'serial_no' && col.prop != 'report'">{{ value }}</span>
+                
         </ng-template>
       </ngx-datatable-column>
     </ng-container>
   </ngx-datatable>
 
-  <!-- <table id="myTable" class="table table-striped">
-        <thead>
-            <tr>
-                <th>NO</th>
-                <th>Lot Ref No</th>
-                <th>Customer Code</th>
-                <th>Customer Name</th>
-                <th>Customer Location</th>
-                <th>Project Code</th>
-                <th>Project Description</th>
-                <th>CreatedAt</th>
-                <th>Destination Customer Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let i of itemList">
-                <tr>
-                    <td><a routerLink="/partlist" [queryParams]="{lotNo:i.item_id}">{{i.item_id}}</a></td>
-                    <td>{{i.lot_ref_no}}</td>
-                    <td>{{i.customer_code}}</td>
-                    <td>{{i.name}}</td>
-                    <td>{{i.customer_location}}</td>
-                    <td>{{i.project_code}}</td>
-                    <td>{{i.project_name}}</td>
-                    <td>{{i.createdDate}}</td>
-                    <td>{{i.country}}</td>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table> -->
+  
 
   <!-- The Modal -->
   <div class="modal fade" id="createItemModal" tabindex="-1" role="dialog">
@@ -166,8 +139,8 @@
                       <input [formControl]="containers" type="text" class="form-control" id="containers"
                         placeholder="Containers" name="containers">
                       <!--<label>Phone {{i}} </label> -->
-                      <button type="button" (click)="removeContainers(i)">Remove</button>
-                      <button type="button" (click)="addContainers()">Add</button>
+                    <button style="margin-right: 13px;margin-top: 7px;margin-bottom: 7px;" (click)="removeContainers(i)"><fa-icon [icon]="faMinusCircle"></fa-icon></button>
+                      <button style="text-decoration: none;" (click)="addContainers()"><fa-icon [icon]="faPlusSquare"></fa-icon></button>
                     </div>
 
                   </div>
