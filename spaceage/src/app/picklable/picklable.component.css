@@ -89201,3 +89201,17 @@ body {
     margin-left: 0px !important;
 }
 
+::ng-deep svg {
+   /* margin-left: -50px;
+    margin-top: 60px;*/
+    height:100px;
+   
+}
+
+::ng-deep rect {
+    height: 100px;
+    
+}
+
+
+

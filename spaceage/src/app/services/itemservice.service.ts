@@ -9,9 +9,9 @@ import { IGetItem } from '../interfaces/http-request-payload';
 })
 export class ItemserviceService {
 
-    ROOT_URI: String = "http://spaceagev02-env.eba-stvf92rb.us-east-2.elasticbeanstalk.com/api/"
+    //ROOT_URI: String = "http://spaceagev02-env.eba-stvf92rb.us-east-2.elasticbeanstalk.com/api/"
 
-    //ROOT_URI: String = "http://localhost:5000/api/"
+    ROOT_URI: String = "http://localhost:5000/api/"
 
     constructor(private httpClient: HttpClient) { }
 

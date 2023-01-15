@@ -17,10 +17,10 @@ export class PicklableComponent implements OnInit {
         for (let i = 0; i < this.picklableList[0].length; i++) {
             this.picklableListFinal.push(this.picklableList[0][i])
             this.picklableListFinal[i].barCodeNo = this.picklableList[0][i].bomNo + this.picklableList[0][i].partNo + this.picklableList[0][i].bomId;
+            //this.picklableListFinal[i].barCodeNo = this.picklableList[0][i].partNo + this.picklableList[0][i].bomId;
                 //+ (i + 1) + this.picklableList[0][i].totalNoOfPackingGroup;
             this.picklableListFinal[i].bomSlNo = i + 1 + "-" + this.picklableList[0][i].totalNoOfPackingGroup;
         }
-        console.log(this.picklableListFinal)
     }
 
 

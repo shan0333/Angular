@@ -27,8 +27,8 @@
 <button [print]="['demo', config]" class="btn btn-info">
     2# Print table
 </button>-->
-<div id="mytodosItemsId">
-<body style="font-weight: 800 !important; margin-bottom: 100px;" *ngFor="let ps of picklableListFinal">
+<div id="mytodosItemsId" style="margin-left: -15px !important;">
+<body style="font-weight:400 !important; margin-bottom: 150px;" *ngFor="let ps of picklableListFinal">
     <div class="card card-custom">
 
         <div class="card-body" style="padding: 0px!important">
@@ -62,25 +62,32 @@
                                 <span class="mr-4">Lot Ref:</span>
                                 <span class="text-right">{{ps.lot_ref_no}}</span>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <span class="mr-4">Pack Code:</span>
-                                <span class="text-right"> {{ps.packCode}} </span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span class="mr-4">Qty/Pack:</span>
-                                <span class="text-right"> {{ps.packQty}} </span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span class="mr-4">Store Loc:</span>
-                                <span class="text-right"> {{ps.stLoction}} </span>
-                            </div>
+                            <!--<div class="d-flex justify-content-between">
+        <span class="mr-4">Pack Code:</span>
+        <span class="text-right"> {{ps.packCode}} </span>
+    </div>
+    <div class="d-flex justify-content-between">
+        <span class="mr-4">Qty/Pack:</span>
+        <span class="text-right"> {{ps.packQty}} </span>
+    </div>
+    <div class="d-flex justify-content-between">
+        <span class="mr-4">Store Loc:</span>
+        <span class="text-right"> {{ps.stLoction}} </span>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <span class="mr-4">Secondary:</span>
+        <span class="text-right"> {{ps.secondaryNo}} </span>
+    </div>-->
                             <div class="d-flex justify-content-between">
                                 <span class="mr-4">Primary:</span>
                                 <span class="text-right"> {{ps.primaryNo}} </span>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <span class="mr-4">Secondary:</span>
-                                <span class="text-right"> {{ps.secondaryNo}} </span>
+                            <div>
+                                <span class=" text-center">
+                                    <ngx-barcode [bc-value]="ps.barCodeNo" [bc-display-value]="true" class="mb-2"></ngx-barcode>
+                                    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWYAAABaAQMAAACxJ243AAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFxJREFUWIVjeKJgxM/G+WAOh0HNsz8F7ecMfh+zk7lhYS99/IzMffsJj9mcf9w/P+HnMZ4HD2rnMIyqHlU9qnpU9ajqUdWjqkdVj6oeVT2qelT1qOpR1aOqh7lqABc7LgffuKjuAAAAAElFTkSuQmCC" alt="barcode" style="width: 100%">-->
+                                </span>
                             </div>
                         </div>
                         <div class="d-flex flex-column" style="padding: 15px;width:35%">
@@ -88,19 +95,39 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <span class="font-size-lg mb-1">Cat Desc : {{ps.catDescription}}</span>
-                                    <span class=" text-center">
-                                        <ngx-barcode [bc-value]="ps.barCodeNo" [bc-display-value]="true" class="mb-2"></ngx-barcode>
-<!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWYAAABaAQMAAACxJ243AAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFxJREFUWIVjeKJgxM/G+WAOh0HNsz8F7ecMfh+zk7lhYS99/IzMffsJj9mcf9w/P+HnMZ4HD2rnMIyqHlU9qnpU9ajqUdWjqkdVj6oeVT2qelT1qOpR1aOqh7lqABc7LgffuKjuAAAAAElFTkSuQmCC" alt="barcode" style="width: 100%">-->
-                                    </span>
-                                    <span class=" text-center" style="padding:0px 0px;display: block;border: 1px solid;">
+                                    <!--<span class=" text-center">
+        <ngx-barcode [bc-value]="ps.barCodeNo" [bc-display-value]="true" class="mb-2"></ngx-barcode>-->
+                                    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWYAAABaAQMAAACxJ243AAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFxJREFUWIVjeKJgxM/G+WAOh0HNsz8F7ecMfh+zk7lhYS99/IzMffsJj9mcf9w/P+HnMZ4HD2rnMIyqHlU9qnpU9ajqUdWjqkdVj6oeVT2qelT1qOpR1aOqh7lqABc7LgffuKjuAAAAAElFTkSuQmCC" alt="barcode" style="width: 100%">-->
+                                    <!--</span>-->
+                                    <!--<span class=" text-center" style="padding:0px 0px;display: block;border: 1px solid;">-->
+                                    <!--<img src="https://spaceage-demo.yaane.in/part/A9W06800.jpg" style="width: 200px; height: 94px">
+    -->
+                                    <!--</span>-->
 
-                                        <img src="https://spaceage-demo.yaane.in/part/A9W06800.jpg" style="width: 200px; height: 94px">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="mr-4">Pack Code:</span>
+                                        <span class="text-right"> {{ps.packCode}} </span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="mr-4">Qty/Pack:</span>
+                                        <span class="text-right"> {{ps.packQty}} </span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="mr-4">Store Loc:</span>
+                                        <span class="text-right"> {{ps.stLoction}} </span>
+                                    </div>
+                                    <!--<div class="d-flex justify-content-between">
+                                        <span class="mr-4">Primary:</span>
+                                        <span class="text-right"> {{ps.primaryNo}} </span>
+                                    </div>-->
+                                    <div class="d-flex justify-content-between">
+                                        <span class="mr-4">Secondary:</span>
+                                        <span class="text-right"> {{ps.secondaryNo}} </span>
+                                    </div>
 
-
-                                    </span>
                                 </div>
-                                <div class="col-sm-4" style="height: 326px; margin-left: inherit;">
-                                    <table class="table" style="width: 139px;margin-top: -8px;">
+                                <div class="col-sm-4">
+                                    <table class="table">
                                         <thead>
                                             <tr class="table-active">
                                                 <th scope="col" style="border: 1px solid; font-size: 9px; font-weight: 900;">Pkg Grp</th>
@@ -116,7 +143,7 @@
                                         </tbody>
                                     </table>
 
-                                    <table class="table" style="margin-top: 137px;">
+                                    <table class="table">
                                         <thead>
                                             <tr>
                                                 <th scope="col" style="border: 1px solid;width: max-content;font-size: 12px;">Met QA</th>
@@ -167,8 +194,8 @@
                                 <span class="text-right"> Bangladesh </span>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <span class="mr-4">BOM S No:</span>
-                                <span class="text-right"> {{ps.bomSlNo}} </span>
+                                <span class="mr-4">BOM No:</span>
+                                <span class="text-right"> {{ps.bomNo}} </span>
                             </div>
 
                         </div>
