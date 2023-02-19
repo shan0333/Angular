@@ -13,6 +13,7 @@ import { formatDate } from '@angular/common';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 declare var $: any;
 
@@ -56,7 +57,8 @@ export class ItemMasterComponent implements OnInit {
     private httpClient: HttpClient,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    @Inject(LOCALE_ID) public locale: string) { 
+      @Inject(LOCALE_ID) public locale: string,
+      private loginService: AuthenticationService  ) { 
   
     this.userForm = this.fb.group({
 
@@ -66,9 +68,13 @@ export class ItemMasterComponent implements OnInit {
     })
 
   }
+    
 
-  ngOnInit(): void {
-    this.setPage({ offset: 0 });
+
+    ngOnInit(): void {
+
+      this.setPage({ offset: 0 });
+     
   }
 
   onFileSelected(event: any) {

@@ -1,33 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
 <body>
-    <div class="container-fluid">
+    <div *ngIf="isUserLoggedIn()" class="container-fluid">
         <app-main-header></app-main-header>
         <div class="sidebar">
-            <a routerLink="dashboard">Dashboard</a>
-            <a routerLink="item-master" routerLinkActive="active">Item Master</a>
-            <a routerLink="project">Project Code</a>
-            <a routerLink="customer">Customer Code</a>
+            <a *ngIf="isUserLoggedIn()" routerLink="dashboard">Dashboard</a>
+            <a *ngIf="isUserLoggedIn()" routerLink="item-master" routerLinkActive="active">Item Master</a>
+            <a *ngIf="isUserLoggedIn()" routerLink="project">Project Code</a>
+            <a *ngIf="isUserLoggedIn()" routerLink="customer">Customer Code</a>
             <!--<a href="#about">Image Upload</a>
             <a href="#about">Scanner</a>-->
-            <a routerLink="gunscanner">Gun Scanner</a>
+            <a *ngIf="isUserLoggedIn()" routerLink="gunscanner">Gun Scanner</a>
+            <a *ngIf="isUserLoggedIn()" routerLink="logout">Logout</a>
         </div>
-       
-        <div style="margin-left: 250px;">
 
-            <app-rightside-header></app-rightside-header>
-            <!--<app-ng-dynamic-breadcrumb></app-ng-dynamic-breadcrumb>-->
-            <router-outlet></router-outlet>
-        </div>
-        
+
+
     </div>
+    <div style="margin-left: 250px;">
 
-</body>
-
-</html>
+        <app-rightside-header></app-rightside-header>
+        <!--<app-ng-dynamic-breadcrumb></app-ng-dynamic-breadcrumb>-->
+        <router-outlet></router-outlet>
+    </div>

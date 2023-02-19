@@ -1,4 +1,4 @@
-import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemserviceService } from 'src/app/services/itemservice.service';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
@@ -13,13 +13,16 @@ declare var $: any;
   styleUrls: ['./part-list.component.css']
 })
 export class PartListComponent implements OnInit {
+
+    @ViewChild('rowDetailTpl', { static: true }) rowDetailTpl: TemplateRef<any> | undefined;
+
     faFileDownload = faDownload;
     faBarcode = faBarcode;
     lotRefNo: any;
     partList: Array<any> = [];
     curr = formatDate(new Date(), 'dd-MM-yyyy', this.locale);
-    
 
+    
     constructor(private route: ActivatedRoute,
         private itemService: ItemserviceService,
         @Inject(LOCALE_ID) public locale: string) { }
@@ -29,10 +32,11 @@ export class PartListComponent implements OnInit {
             .subscribe(params => {
                 this.lotRefNo = params;
             }
-        );
+            );
 
-       this.getBomById();
-  }
+        this.getBomById();
+    }   
+
     case: Case = new Case();
     bomObject: any;
     openPopup(p: any) {
@@ -70,5 +74,11 @@ export class PartListComponent implements OnInit {
         this.itemService.createCaseRecord(p).subscribe(blob => saveAs(blob, 'CaseList' + "_" + this.curr + '.pdf'));
     }
 
+    onClickBtn() {
+        alert("Hi Add Button !!!!!");
+    }
+    onRowClick(item: any) {
+        alert(JSON.stringify(item));
+    }
       
 }

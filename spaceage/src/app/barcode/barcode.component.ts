@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { jsPDF } from 'jspdf';
+import { DatePipe } from '@angular/common';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-barcode',

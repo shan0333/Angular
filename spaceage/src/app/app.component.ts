@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-/*import { AuthenticationService } from '../app/services/authentication.service';
-*/
+import { AuthenticationService } from '../app/services/authentication.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,7 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'spaceage';
-    constructor() {
+    active: any;
+    constructor(private loginService: AuthenticationService) {
 
+    }
+
+    isUserLoggedIn() {
+       return this.loginService.isUserLoggedIn();
     }
 }
