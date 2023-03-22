@@ -1,0 +1,190 @@
+<button printSectionId="mytodosItemsId" ngxPrint style="margin-top: 100px; margin-left: 15px;">Print</button>
+<div id="mytodosItemsId">
+    <div class="d-flex flex-column-fluid" *ngFor="let ps of barcodeList">
+        <div class=" container ">
+            <style>
+                body {
+                    background: transparent !important;
+                }
+
+                .aside-fixed .aside {
+                    display: none !important;
+                }
+
+                .aside-fixed .wrapper {
+                    padding-left: 0px !important;
+                }
+
+                .header-fixed.subheader-fixed.subheader-enabled .wrapper {
+                    padding-top: 0px !important;
+                }
+
+                .header-fixed.subheader-fixed .header {
+                    display: none !important;
+                }
+
+                .aside-enabled.subheader-fixed .subheader {
+                    display: none !important;
+                }
+
+                .container {
+                    max-width: 100% !important;
+                }
+
+                .header-mobile-fixed .header-mobile {
+                    display: none !important;
+                }
+
+                .page-break {
+                    page-break-after: always;
+                }
+                /*.page-break2	{ page-break-after: auto; }*/
+                body {
+                    font-weight: 800 !important;
+                }
+
+                .content {
+                    padding: 0px !important;
+                }
+
+                .container {
+                    padding: 0px !important;
+                }
+                /*.table thead th, .table thead td {*/
+
+                /*     padding-top: 0px!important;*/
+                /*     padding-bottom: 0px!important;*/
+                /*}*/
+                .footer {
+                    display: none !important;
+                }
+
+                .mango {
+                    width: 604px;
+                    height: 394px;
+                    margin-right: 0px;
+                    margin-left: 5px;
+                }
+
+                #kt_quick_user {
+                    display: none;
+                }
+
+                .table thead th, .table thead td {
+                    padding-top: 3px !important;
+                    padding-bottom: 3px !important;
+                    /* padding: 5px!important; */
+                }
+
+                /*@page  { size: letter landscape }*/
+
+                @page {
+                    size: 3.93701in 2.75591in;
+                    margin: 0mm 0mm 0mm 0mm;
+                }
+
+                .flex-row {
+                    flex-direction: row !important;
+                }
+
+                #kt_scrolltop {
+                    display: none;
+                }
+
+                .font-size-lg {
+                    font-size: 15px !important;
+                }
+            </style>
+
+            <div class="card card-custom position-relative overflow-hidden" style="font-weight: 800 !important;">
+                <div class="card card-custom">
+                    <div class="card-body" style="padding: 0px; margin-bottom: 30px;">
+                        <div class="row justify-content-center pt-2 pb-2 mango">
+                            <div class="col-12" style="border: 2px solid;">
+                                <div class="d-flex justify-content-between flex-column flex-row">
+                                    <div class="d-flex flex-column mb-10 mb-md-0">
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="mr-15 font-size-lg">Part Number:</span>
+                                            <span class="text-right font-size-lg">{{ps.partNo}}</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="mr-15" style="font-size: 13px!important;">{{ps.partDescription}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column text-md-right">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="mr-15 font-size-lg font-weight-bold"> Pack Qty:</span>
+                                            <span class="text-right font-size-lg">{{ps.packQty}}</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="mr-15 font-weight-bold font-size-lg"> Lot #:</span>
+                                            <span class="text-right font-size-lg">{{bomId.lotNo}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th class="pl-0 pr-0 font-size-lg" scope="col">CAT Code</th>
+                                            <th class="pl-0 pr-0 font-size-lg" scope="col">CAT Desc</th>
+                                            <th class="pl-0 pr-0 font-size-lg" scope="col">Case</th>
+                                            <th class="pl-0 pr-0 font-size-lg" scope="col" style="text-align: end">PK GRP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="p-0 font-size-lg">{{ps.projectCode}}</td>
+                                            <td class="p-0" style="font-size: 12px!important;">{{ps.catDescription}}</td>
+                                            <td class="p-0 font-size-lg">{{ps.caseMap}}</td>
+                                            <td class="p-0 font-size-lg" style="text-align: end">{{ps.bomSlNo}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="d-flex flex-column">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <span>
+                                                <ngx-barcode [bc-value]="ps.barCodeNo" [bc-display-value]="true" class="mb-2"></ngx-barcode>
+                                            </span>
+                                            <!-- <span class="mb-2 font-size-lg">PRTLAMZ16460288041</span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th class="pl-0 pr-0 font-size-lg" scope="col">BOM NO</th>
+                                            <!--<th class="pl-0 pr-0 font-size-lg" scope="col">MIX</th>
+                                            <th class="pl-0 pr-0 font-size-lg" scope="col">PROC</th>-->
+                                            <th class="pl-0 pr-0 font-size-lg" scope="col">Pack Code</th>
+                                            <th class="pl-0 pr-0 font-size-lg" scope="col" style="text-align: end">USER ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="p-0 font-size-lg">{{ps.bomNo}}</td>
+                                            <!--<td class="p-0 font-size-lg">{{ps.mix}}</td>
+                                            <td class="p-0 font-size-lg">{{ps.packQty}}</td>-->
+                                            <td class="p-0 font-size-lg">{{ps.packCode}}</td>
+                                            <td class="p-0 font-size-lg" style="text-align: end">{{"ADMIN"}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <div class="text-md-right float-right">
+                                        <div class="mb-2">
+                                            <span class=" font-size-lg">Pack Date :- {{ps.packedDate | date:'dd-MM-YYYY'}}</span>
+                                        </div>
+                                        <img src="assets/images/company-logo.jpeg" class="logo" style="width: 100px;  margin-left: 418px;  margin-top: -57px;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-break"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

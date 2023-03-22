@@ -1,0 +1,222 @@
+<div class="container">
+    <div class="row header" style="text-align:center;color:green"></div>
+
+    <div style="margin-top: 100px; display: flex;">
+        <span style="font-weight: bold;margin-right: auto;margin-left: 25px;font-size: x-large;">Customer List</span>
+        <button type="button" class="btn btn-primary" (click)="openPopup()" *ngIf="this.policy?.policy[3]?.action?.add" >New Customer</button>
+    </div>
+    <ngx-datatable class="bootstrap" id="part-master" [rows]="customerList" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50" rowHeight="auto" [scrollbarH]="true" [reorderable]="false" [sortType]="sortType"
+                   [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+                   (page)="setPage($event)" [externalSorting]="true" [loadingIndicator]="loading">
+
+
+        <ngx-datatable-column [resizeable]="false" name="Code" prop="customer_code" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Email" prop="email" [width]="30"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Name" prop="name" [width]="50"></ngx-datatable-column>
+
+        <ngx-datatable-column [resizeable]="false" name="Mobile" prop="mobile" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Address" prop="address1" [width]="150"></ngx-datatable-column>
+        <!-- <ngx-datatable-column [resizeable]="false" name="Addr2" prop="address2" [width]="150"></ngx-datatable-column>-->
+
+        <ngx-datatable-column [resizeable]="false" name="Country" prop="country" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="State" prop="state" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="City" prop="city" [width]="20"></ngx-datatable-column>
+
+        <!--<ngx-datatable-column [resizeable]="false" name="Postal Code" prop="postal_code" [width]="20"></ngx-datatable-column>-->
+
+        <ngx-datatable-column [resizeable]="false" name="Contact Name" prop="contact_name" [width]="50"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Designation" prop="designation" [width]="50"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Phone" prop="phone" [width]="20"></ngx-datatable-column>
+
+        <!-- <ngx-datatable-column [resizeable]="false" name="Web" prop="web_address" [width]="50"></ngx-datatable-column>-->
+        <ngx-datatable-column [resizeable]="false" name="Location" prop="customer_location" [width]="50"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Action" [width]="80">
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <span><button style="text-decoration: none;" type="submit" (click)="openEditPopup(row)" class="btn btn-success" *ngIf="this.policy?.policy[3]?.action?.edit"><fa-icon [icon]="faEdit"></fa-icon></button>    </span>
+                <span><button style="text-decoration: none; margin-left: 10px;" type="submit" (click)="delete(row.customer_id)" class="btn btn-danger" *ngIf="this.policy?.policy[3]?.action?.delete"><fa-icon [icon]="faRemove"></fa-icon></button>    </span>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+<!--<div>
+    <div style="display: flex;">
+    <span style="margin-right: auto; font-weight: bold;">Customer Details</span>
+    <button type="button" class="btn btn-primary" (click)="openPopup()">New Customer</button>
+  </div>
+
+    
+    <div class="justify-content-center align-items-center" style="margin-top: 10px;">
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Addr1</th>
+                        <th scope="col">Addr2</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">State</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Postal Code</th>
+                        <th scope="col">Contact Name</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Web</th>
+                        <th scope="col">Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let r of customerList">
+                        <th scope="row">1</th>
+                        <td>{{r.customer_code}}</td>
+                        <td>{{r.email}}</td>
+                        <td>{{r.name}}</td>
+                        <td>{{r.mobile}}</td>
+                        <td>{{r.address1}}</td>
+                        <td>{{r.address2}}</td>
+                        <td>{{r.country}}</td>
+                        <td>{{r.state}}</td>
+                        <td>{{r.city}}</td>
+                        <td>{{r.postal_code}}</td>
+                        <td>{{r.contact_name}}</td>
+                        <td>{{r.designation}}</td>
+                        <td>{{r.phone}}</td>
+                        <td>{{r.web_address}}</td>
+                        <td>{{r.customer_location}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>-->
+<!-- Modal -->
+<div class="modal fade" id="createItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header float-right">
+                <h5>Create Customer</h5>
+                <div class="text-right">
+                    <i data-dismiss="modal" aria-label="Close" class="fa fa-close" (click)="closePopup()" ></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="card card-custom example example-compact">
+                        <div class="card-body">
+                            <form class="form" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="_token" value="ZkLlNji1q5wvBAQS4p8b7dwgLdrQAD9qaFq3MDRe">                    <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Customer Code*</label>
+                                            <input type="text" name="customer_code" class="form-control" [(ngModel)]="cus.customer_code" placeholder="Enter customer code" required>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Email*</label>
+                                            <input type="email" name="email" class="form-control" [(ngModel)]="cus.email" placeholder="Enter User's Email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Name*</label>
+                                            <input type="text" name="name" class="form-control" [(ngModel)]="cus.name" placeholder="name" required="" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Mobile*</label>
+                                            <input type="number" name="mobile" class="form-control" [(ngModel)]="cus.mobile" placeholder="mobile" required="" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Address1*</label>
+                                            <textarea name="address1" class="form-control" [(ngModel)]="cus.address1" placeholder="Enter address line1" required=""></textarea>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Address2</label>
+                                            <textarea name="address2" class="form-control" [(ngModel)]="cus.address2" placeholder="Enter address line2" required=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Country*</label>
+                                            <input type="text" name="country" class="form-control" [(ngModel)]="cus.country" placeholder="Enter country" required="" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>State*</label>
+                                            <input type="text" name="state" class="form-control" [(ngModel)]="cus.state" placeholder="Enter state" required="" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>City*</label>
+                                            <input type="text" name="city" class="form-control" [(ngModel)]="cus.city" placeholder="Enter city" required="" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Postal Code*</label>
+                                            <input type="text" name="postal_code" class="form-control" [(ngModel)]="cus.postal_code" placeholder="Enter postal code" required="" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Contact Name*</label>
+                                            <input type="text" name="contact_name" class="form-control" [(ngModel)]="cus.contact_name" placeholder="Enter Contact Name" required="" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Designation*</label>
+                                            <input type="text" name="designation" class="form-control" [(ngModel)]="cus.designation" placeholder="Enter designation" required="" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Phone</label>
+                                            <input type="number" name="tele_phone" class="form-control" [(ngModel)]="cus.phone" placeholder="Enter Phone Number" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Web Address</label>
+                                            <input type="text" name="web_address" class="form-control" [(ngModel)]="cus.web_address" placeholder="Enter web address" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Location</label>
+                                            <input type="text" name="customer_location" class="form-control" [(ngModel)]="cus.customer_location" placeholder="Enter Customer Location" value="">
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                       <div class="card-footer">
+                            <div class="row">
+                                <div class="col-lg-3 ml-lg-auto">
+                                    <button type="submit" (click)="createCustomer()" class="btn btn-primary font-weight-bold mr-2">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closePopup()">Close</button>
+                <!--<button type="button" (click)="createCustomer()" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+</div>

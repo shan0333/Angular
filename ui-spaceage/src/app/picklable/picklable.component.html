@@ -1,0 +1,205 @@
+<!--<div id="mytodosItemsId"> Test</div>-->
+<!--<button printSectionId="mytodosItemsId" ngxPrint>Print</button>-->
+<!-- Component -->
+<!--<ngx-print-element #element="element">
+    <button (click)="element?.print('demo')" class="btn btn-info m-1">
+        1# Print table
+    </button>
+</ngx-print-element>-->
+<!-- Directive -->
+<!--<button [print]="['demo']" class="btn btn-info m-1">
+    Directive - 1# Print table
+</button>-->
+<!-- Service -->
+<!--<button (click)="print?.print('demo')" class="btn btn-info m-1">
+    Service - 1# Print table
+</button>-->
+<!-------------------------->
+<!--- 2# The second way ---->
+<!-------------------------->
+<!--<h5 class="my-3">2# The second way needs configuration</h5>
+<button [print]="['demo', config]" class="btn btn-info">
+    2# Print table
+</button>-->
+<div id="mytodosItemsId" style="margin-left: -15px !important;">
+
+    <body style="font-weight:400 !important; margin-bottom: 150px;" *ngFor="let ps of picklableListFinal">
+        <div class="card card-custom">
+
+            <div class="card-body" style="padding: 0px!important">
+                <div class="row justify-content-center pb-3 pt-3" id="page0">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-between flex-column flex-md-row font-size-lg" style="border: 2px solid black">
+
+                            <div class="d-flex flex-column mb-10 mb-md-0" style="width: 35%;padding: 15px">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="mr-4">Part No:</span>
+                                    <span class="text-right"> {{ps.partNo}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span class="mr-4">Part Desc:</span>
+                                    <span class="text-right"> {{ps.partDescription}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Version:</span>
+                                    <span class="text-right"> {{ps.version}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Lot size:</span>
+                                    <span class="text-right"> {{ps.lot_size}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Qty Rqd:</span>
+                                    <span class="text-right"> {{ps.qtyRequired}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Lot Ref:</span>
+                                    <span class="text-right">{{ps.lot_ref_no}}</span>
+                                </div>
+                                <!--<div class="d-flex justify-content-between">
+                                    <span class="mr-4">Pack Code:</span>
+                                    <span class="text-right"> {{ps.packCode}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Qty/Pack:</span>
+                                    <span class="text-right"> {{ps.packQty}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Store Loc:</span>
+                                    <span class="text-right"> {{ps.stLoction}} </span>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Secondary:</span>
+                                    <span class="text-right"> {{ps.secondaryNo}} </span>
+                                </div>-->
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Primary:</span>
+                                    <span class="text-right"> {{ps.primaryNo}} </span>
+                                </div>
+                                <div>
+                                    <span class=" text-center">
+                                        <ngx-barcode [bc-value]="ps.barCodeNo" [bc-display-value]="true" class="mb-2"></ngx-barcode>
+                                        <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWYAAABaAQMAAACxJ243AAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFxJREFUWIVjeKJgxM/G+WAOh0HNsz8F7ecMfh+zk7lhYS99/IzMffsJj9mcf9w/P+HnMZ4HD2rnMIyqHlU9qnpU9ajqUdWjqkdVj6oeVT2qelT1qOpR1aOqh7lqABc7LgffuKjuAAAAAElFTkSuQmCC" alt="barcode" style="width: 100%">-->
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column" style="padding: 15px;width:35%">
+
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <span class="font-size-lg mb-1">Cat Desc : {{ps.catDescription}}</span>
+                                        <!--<span class=" text-center">
+                                        <ngx-barcode [bc-value]="ps.barCodeNo" [bc-display-value]="true" class="mb-2"></ngx-barcode>-->
+                                        <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWYAAABaAQMAAACxJ243AAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFxJREFUWIVjeKJgxM/G+WAOh0HNsz8F7ecMfh+zk7lhYS99/IzMffsJj9mcf9w/P+HnMZ4HD2rnMIyqHlU9qnpU9ajqUdWjqkdVj6oeVT2qelT1qOpR1aOqh7lqABc7LgffuKjuAAAAAElFTkSuQmCC" alt="barcode" style="width: 100%">-->
+                                        <!--</span>-->
+                                        <!--<span class=" text-center" style="padding:0px 0px;display: block;border: 1px solid;">-->
+                                        <!--<img src="https://spaceage-demo.yaane.in/part/A9W06800.jpg" style="width: 200px; height: 94px">
+                                        -->
+                                        <!--</span>-->
+
+                                        <div class="d-flex justify-content-between">
+                                            <span class="mr-4">Pack Code:</span>
+                                            <span class="text-right"> {{ps.packCode}} </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <span class="mr-4">Qty/Pack:</span>
+                                            <span class="text-right"> {{ps.packQty}} </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <span class="mr-4">Store Loc:</span>
+                                            <span class="text-right"> {{ps.stLoction}} </span>
+                                        </div>
+                                        <!--<div class="d-flex justify-content-between">
+                                            <span class="mr-4">Primary:</span>
+                                            <span class="text-right"> {{ps.primaryNo}} </span>
+                                        </div>-->
+                                        <div class="d-flex justify-content-between">
+                                            <span class="mr-4">Secondary:</span>
+                                            <span class="text-right" style="font-size: small;"> {{ps.secondaryNo}} </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <img [src]="ps.picByte" style="width: -webkit-fill-available;" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="table-active">
+                                                    <th scope="col" style="border: 1px solid; font-size: 9px; font-weight: 900;">Pkg Grp</th>
+                                                    <th scope="col" style="border: 1px solid; font-size: 11px; font-weight: 900;">Sub Grp</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center" style="border: 1px solid; font-size: x-small;"> {{ps.packingGroup}} </td>
+                                                    <td class="text-center" style="border: 1px solid; font-size: x-small;"> {{ps.totalNoOfPackingGroup}} </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="border: 1px solid;width: max-content;font-size: 12px;">Met QA</th>
+                                                    <th scope="col" style="border: 1px solid"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="border: 1px solid; width: max-content; font-size: 10px;">CKD QA</td>
+                                                    <td style="border: 1px solid"><span style="color: transparent">A</span> </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column mb-10 mb-md-0" style="width: 30%; border-left: 2px solid black;padding: 15px">
+                                <span class="font-size-lg font-weight-bolder mb-1 text-center" style="font-size: 15px; text-decoration: underline">
+                                    Pick Label - customer Store Rcpt
+                                </span>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="mr-4">Part No:</span>
+                                    <span class="text-right"> {{ps.partNo}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span class="mr-4">Part Desc:</span>
+                                    <span class="text-right"> {{ps.partDescription}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Version:</span>
+                                    <span class="text-right"> {{ps.version}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Qty Rqd:</span>
+                                    <span class="text-right"> {{ps.qtyRequired}} </span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Lot Ref:</span>
+                                    <span class="text-right">{{ps.lot_ref_no}}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">Validity:</span>
+                                    <span class="text-right"> {{ps.validity}} </span>
+                                </div>
+                                <!--<div class="d-flex justify-content-between">
+                                    <span class="mr-4">Country:</span>
+                                    <span class="text-right"> Bangladesh </span>
+                                </div>-->
+                                <div class="d-flex justify-content-between">
+                                    <span class="mr-4">BOM No:</span>
+                                    <span class="text-right"> {{ps.bomNo}} </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</div>

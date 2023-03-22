@@ -1,6 +1,16 @@
 .container {
     padding-right: 15px;
-    padding-left: 0px;
+    padding-left: 8px;
     margin-right: auto;
     margin-left: 0px;
+}
+.form-group, .margin-align {
+    margin-top :5px !important;
+}
+.mandatory {
+    color: red !important;
+}
+
+.datatable-header {
+    margin-top: 15px !important;
 }

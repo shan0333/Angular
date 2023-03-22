@@ -1,0 +1,247 @@
+<div class="container">
+    <div class="row header" style="text-align:center;color:green"></div>
+
+    <div style="margin-top: 100px; display: flex;">
+        <span style="font-weight: bold;margin-right: auto;margin-left: 25px;font-size: x-large;">Lot Ref No - <label style="color: red;"> {{this.lotNo}}</label></span>
+
+        <div class="col-sm-2" style="margin-right: auto;">
+
+            <input type="text" class="form-control" name="gross" placeholder="Search Bom No" [(ngModel)]="bomNo">
+        </div>
+        <div class="col-sm-2" style="margin-right: auto;">
+
+            <input type="text" class="form-control" name="gross" placeholder="Search Part No" [(ngModel)]="partNo">
+        </div>
+        <div class="col-sm-2" style="margin-right: auto;">
+            <button type="button" class="btn btn-primary" (click)="search(partNo, bomNo)"> Search </button>
+        </div>
+        <button type="button" class="btn btn-primary"> <a target="_blank" routerLink="/picklable" [queryParams]="{lotNo: lotNo}" style="color: aliceblue;">Pick Lable</a></button>
+    </div>
+
+        <button type="button" (click)="createPartOpenPopup()" class="btn btn-primary" style="margin-left: 20px; margin-top: 15px;" *ngIf="this.policy?.policy[6]?.action?.add">Add Part</button>
+    <ngx-datatable class="bootstrap" id="part-master" [rows]="itemList" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50" rowHeight="auto" [scrollbarH]="true" [reorderable]="false" [sortType]="sortType"
+                   [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+                   (page)="setPage($event)" [externalSorting]="true" [loadingIndicator]="loading">
+
+
+        <ngx-datatable-column [resizeable]="false" name="Bom No" prop="bomNo" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Status" prop="labelStatus" [width]="75">
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <span>
+                    <button style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);transition-duration: 0.4s;border-radius: 12px;" [ngStyle]="{'background-color': row.colorCode}">{{value}}</button>
+                </span>
+
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Qty Scan/Pack Grp" prop="totalPartScanned" [width]="30"></ngx-datatable-column>
+
+        <ngx-datatable-column [resizeable]="false" name="Part No" prop="partNo" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Description" prop="partDescription" [width]="250"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Packing Group" prop="packingGroup" [width]="20"></ngx-datatable-column>
+
+        <ngx-datatable-column [resizeable]="false" name="Store Location" prop="stLoction" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Validity" prop="validity" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Part Label" prop="enablePartLabel" [width]="50">
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="value == true">
+                    <a style="color: forestgreen; " routerLink="/barcode" [queryParams]="{bomId: row.bomId, lotNo: row.lot_ref_no}"><fa-icon [icon]="faBarcode"></fa-icon></a>
+                </span>
+                <span *ngIf="value == false">
+                    <a style="text-decoration: none;">
+                        -
+                    </a>
+                </span>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column [resizeable]="false" name="Case Report" prop="enableCaseReport" [width]="50">
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="value == true">
+                    <a style="color: forestgreen; " (click)="openPopup(row)"><fa-icon [icon]="faFileDownload"></fa-icon></a>
+                </span>
+                <span *ngIf="value == false">
+                    <a style="text-decoration: none;">
+                        -
+                    </a>
+                </span>
+            </ng-template>
+
+        </ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Action" [width]="90">
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <span>
+                    <button *ngIf="row.labelStatus=='Pending' && this.policy?.policy[6]?.action?.edit" type="button" class="btn btn-success" (click)="partOpenPopup(row)" ><fa-icon [icon]="faEdit"></fa-icon></button>
+                    <button *ngIf="row.labelStatus=='Pending' && this.policy?.policy[6]?.action?.delete" style="text-decoration: none; margin-left: 10px;" type="submit" class="btn btn-danger" (click)="delete(row.bomId)"><fa-icon [icon]="faRemove"></fa-icon></button>
+                </span>
+                </ng-template>
+            </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+<!-- The Modal -->
+<div class="modal fade" id="createItemModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Weight</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-md-10 mx-auto">
+                            <form name="fileupload">
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Net Weight<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="net" placeholder="Net Weight" [(ngModel)]="case.netWeight">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Gross Weight <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="gross" placeholder="Gross Weight" [(ngModel)]="case.grossWeight">
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="button" (click)="createNewRecord(case,bomObject)" class="btn btn-success">
+                                        Update & Download
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger" (click)="closePopup()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Part Modal -->
+<div class="modal fade" id="partModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Part Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-md-10 mx-auto">
+                            <form name="fileupload">
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Part No<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Part No" placeholder="Part Number" [(ngModel)]="item.partNo">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Part Description <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Part Description" placeholder="Part Description" [(ngModel)]="item.partDescription">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Version<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Version" placeholder="Version" [(ngModel)]="item.version">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">ST_Location <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="ST_Location" placeholder="ST_Location" [(ngModel)]="item.stLoction">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Validity<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Validity" placeholder="Validity" [(ngModel)]="item.validity">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">CAT Description <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="CAT Description" placeholder="CAT Description" [(ngModel)]="item.catDescription">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Qty Required<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Qty Required" placeholder="Qty Required" [(ngModel)]="item.qtyRequired">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Qty / Lot <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Qty / Lot" placeholder="Qty / Lot" [(ngModel)]="item.qtyLot">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Primary #<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Primary" placeholder="Primary #" [(ngModel)]="item.primaryNo">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Secondary #<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Secondary" placeholder="Secondary #" [(ngModel)]="item.secondaryNo">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Pack Code<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Pack Code" placeholder="Pack Code" [(ngModel)]="item.packCode">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Pack Qty<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Pack Qty" placeholder="Pack Qty" [(ngModel)]="item.packQty">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Packing Group<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Packing Group" placeholder="packingGroup" [(ngModel)]="item.packingGroup">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Total No of Packing Group<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Total No of Packing Group" placeholder="totalNoOfPackingGroup" [(ngModel)]="item.totalNoOfPackingGroup">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Mix Group<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Mix Group" placeholder="mixGroup" [(ngModel)]="item.mixGroup">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Mix<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="mix" placeholder="mix" [(ngModel)]="item.mix">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Bom No<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Bom No" placeholder="Bom No" [(ngModel)]="item.bomNo">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputCity">Case Map<span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" name="Case Map" placeholder="caseMap" [(ngModel)]="item.caseMap">
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="button" (click)="UpdateRecord(item)" class="btn btn-success">
+                                        Save/Update
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger" (click)="partClosePopup()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

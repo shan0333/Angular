@@ -1,0 +1,22 @@
+.container {
+    padding-right: 15px;
+    padding-left: 8px;
+    margin-right: auto;
+    margin-left: 0px;
+}
+
+.form-group, .margin-align {
+    margin-top: 5px !important;
+}
+
+.mandatory {
+    color: red !important;
+}
+#part-master {
+    width: 100%;
+    margin-left: 15px;
+}
+
+::ng-deep.ngx-datatable.bootstrap .datatable-header {
+   /* margin-top: 50px !important;*/
+}

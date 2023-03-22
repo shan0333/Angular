@@ -1,0 +1,156 @@
+<div class="container">
+    <div class="row header" style="text-align:center;color:green"></div>
+
+    <div style="margin-top: 100px; display: flex;">
+        <span style="font-weight: bold;margin-right: auto;margin-left: 25px;font-size: x-large;">Project List</span>
+        <button *ngIf="this.policy?.policy[2]?.action?.add" type="button" class="btn btn-primary" (click)="openPopup()">New Project</button>
+    </div>
+    <ngx-datatable class="bootstrap" id="part-master" [rows]="projectList" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50" rowHeight="auto" [scrollbarH]="true" [reorderable]="false" [sortType]="sortType"
+                   [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+                   (page)="setPage($event)" [externalSorting]="true" [loadingIndicator]="loading">
+
+
+        <ngx-datatable-column [resizeable]="false" name="Code" prop="project_code" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Email" prop="email" [width]="30"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Name" prop="project_name" [width]="50"></ngx-datatable-column>
+
+        <ngx-datatable-column [resizeable]="false" name="Project Location" prop="project_location" [width]="20"></ngx-datatable-column>
+
+        <ngx-datatable-column [resizeable]="false" name="Country" prop="country" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="State" prop="state" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="City" prop="city" [width]="20"></ngx-datatable-column>
+
+        <ngx-datatable-column [resizeable]="false" name="Destination Location" prop="destination_location" [width]="20"></ngx-datatable-column>-->
+
+        <ngx-datatable-column [resizeable]="false" name="Buyername" prop="buyername" [width]="50"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Designation" prop="designation" [width]="50"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Phone" prop="phone" [width]="20"></ngx-datatable-column>
+        <ngx-datatable-column [resizeable]="false" name="Action" [width]="60">
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <span><button style="text-decoration: none;" type="submit" (click)="openEditPopup(row)" class="btn btn-success" *ngIf="this.policy?.policy[2]?.action?.edit"><fa-icon [icon]="faEdit"></fa-icon></button>    </span>
+                <span><button style="text-decoration: none; margin-left: 10px;" type="submit" (click)="delete(row.project_id)" class="btn btn-danger" *ngIf="this.policy?.policy[2]?.action?.delete"><fa-icon [icon]="faRemove"></fa-icon></button>    </span>
+            </ng-template>
+        </ngx-datatable-column>
+        <!-- <ngx-datatable-column [resizeable]="false" name="Web" prop="web_address" [width]="50"></ngx-datatable-column>-->
+        <!--<ngx-datatable-column [resizeable]="false" name="Location" prop="customer_location" [width]="50"></ngx-datatable-column>-->
+    </ngx-datatable>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="createItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header float-right">
+                <h5>Create Project</h5>
+                <div class="text-right">
+                    <i data-dismiss="modal" aria-label="Close" class="fa fa-close" (click)="closePopup()"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="card card-custom example example-compact">
+                        <div class="card-body">
+                            <form class="form" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="_token" value="ZkLlNji1q5wvBAQS4p8b7dwgLdrQAD9qaFq3MDRe">                    <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Project Code*</label>
+                                            <input type="text" name="project_code" class="form-control" [(ngModel)]="pro.project_code" placeholder="Project code" required>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Project Name*</label>
+                                            <input type="text" name="project_name" class="form-control" [(ngModel)]="pro.project_name" placeholder="Project Name" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Project Location*</label>
+                                            <input type="text" name="name" class="form-control" [(ngModel)]="pro.project_location" placeholder="Project Location" required>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>City*</label>
+                                            <input type="text" name="mobile" class="form-control" [(ngModel)]="pro.city" placeholder="City" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Postal Code*</label>
+                                            <input type="text" name="postalcode" class="form-control" [(ngModel)]="pro.postal_code" placeholder="Postal Code" required="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>State</label>
+                                            <input type="text" name="state" class="form-control" [(ngModel)]="pro.state" placeholder="State" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Country*</label>
+                                            <input type="text" name="country" class="form-control" [(ngModel)]="pro.country" placeholder="Country" required="" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Destination Location*</label>
+                                            <input type="text" name="state" class="form-control" [(ngModel)]="pro.destination_location" placeholder="Destination Location" required="" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Buyer Name*</label>
+                                            <input type="text" name="city" class="form-control" [(ngModel)]="pro.buyername" placeholder="Buyername" required="" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Designation*</label>
+                                            <input type="text" name="postal_code" class="form-control" [(ngModel)]="pro.designation" placeholder="Designation" required="" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Telephone</label>
+                                            <input type="text" name="contact_name" class="form-control" [(ngModel)]="pro.telephone" placeholder="Telephone" required="" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Mobile*</label>
+                                            <input type="text" name="designation" class="form-control" [(ngModel)]="pro.mobile" placeholder="Mobile" required="" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Email</label>
+                                            <input type="text" name="tele_phone" class="form-control" [(ngModel)]="pro.email" placeholder="Email" value="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Web Address</label>
+                                            <input type="text" name="web_address" class="form-control" [(ngModel)]="pro.web_address" placeholder="Enter web address" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-lg-3 ml-lg-auto">
+                                    <button type="submit" (click)="createProject()" class="btn btn-primary font-weight-bold mr-2">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closePopup()">Close</button>
+                <!--<button type="button" (click)="createCustomer()" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+</div>

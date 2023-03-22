@@ -1,0 +1,14 @@
+
+<div class="loginBox">
+    <img class="user" src="assets/images/company-logo.jpeg" height="50px" width="250px">
+   
+    <form action="login.php" method="post">
+        <div class="inputBox"> 
+            <input id="uname" type="text" [(ngModel)]="username" name="Username" placeholder="Username"> 
+            <input id="pass" type="password" [(ngModel)]="password" name="Password" placeholder="Password"> 
+        </div> 
+            <input type="submit" name="" value="Login" (click)=checkLogin()>
+    </form>
+   
+
+</div>

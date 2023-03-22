@@ -1,1 +1,284 @@
-<p>item-master works!</p>
+
+<!--<app-rightside-header></app-rightside-header>-->
+<div class="container">
+    <div class="row header" style="text-align:center;color:green"></div>
+
+    <div style="margin-top: 100px; display: flex;">
+        <span style="margin-right: auto; font-weight: bold;">Bill of Material</span>
+        <button type="button" class="btn btn-primary" (click)="openPopup()" *ngIf="this.policy?.policy[1]?.action?.add">Add Item</button>
+    </div>
+
+    <ngx-datatable class="bootstrap" id="item-master" [rows]="itemList" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50" rowHeight="auto" [scrollbarH]="true" [reorderable]="false" [sortType]="sortType"
+                   [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+                   (page)="setPage($event)" [externalSorting]="true" [loadingIndicator]="loading" (sort)="onSort($event)">
+        <ng-container *ngFor="let col of cols;">
+            <ngx-datatable-column [resizeable]="false" [name]="col.name" [prop]="col.prop" [width]="col.width">
+                <ng-template let-value="value" let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <span *ngIf="col.prop == 'lot_ref_no'"><a style="text-decoration: none;" routerLink="/partlist" [queryParams]="{lotNo: value}">{{value}}</a></span>
+                    <span *ngIf="col.prop == 'report'"><button style="text-decoration: none;" (click)="fileDownload(value)"><fa-icon [icon]="faFileDownload"></fa-icon></button>    </span>
+
+                    <span *ngIf="col.prop == 'serial_no'">{{rowIndex + 1}}</span>
+                    <span *ngIf="col.prop != 'lot_ref_no' && col.prop != 'serial_no' && col.prop != 'report'">{{ value }}</span>
+                   <!-- <span *ngIf="col.prop == 'edit'"><button style="text-decoration: none;" (click)="openEditPopup(row)">Edit</button>  </span>
+                    <span *ngIf="col.prop == 'edit'"><button style="text-decoration: none;" (click)="delete(row.item_id)">Delete</button>  </span>-->
+                </ng-template>
+            </ngx-datatable-column>
+        </ng-container>
+    </ngx-datatable>
+
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="createItemModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create New Record</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container py-5">
+                        <div class="row">
+                            <div class="col-md-10 mx-auto">
+                                <form name="fileupload">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
+                                            <select class="form-control" name="project_code" [(ngModel)]="item.project_code">
+                                                <option>Select</option>
+                                                <option *ngFor="let item of this.projectList;let i = index" value="{{item.project_id}}">
+                                                    {{item.project_name}}
+                                                </option>
+                                            </select>
+                                            <!--<input type="text" class="form-control" id="projectCode" placeholder="Project Code">-->
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" name="lot_size" [(ngModel)]="item.lot_size"
+                                                   placeholder="Lot Size">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+
+                                        <div class="col-sm-6">
+                                            <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="customer_code" [(ngModel)]="item.customer_code">
+                                                <option>Select</option>
+                                                <option *ngFor="let item of this.customerList;let i = index" value="{{item.customer_id}}">
+                                                    {{item.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6" *ngIf="!this.hideLotRefNo">
+                                            <label for="inputState">Customer Login<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="customer_login" [(ngModel)]="item.customer_login">
+                                                <option>0</option>
+                                                <option *ngFor="let item of this.dataList;let i = index" value="test">
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="org_country_id" [(ngModel)]="item.org_country_id">
+                                                <option>Select</option>
+                                                <option *ngFor="let item of this.countryList;let i = index" value="{{item.id}}">
+                                                    {{item.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-6" *ngIf="!this.hideUpload">
+                                            <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
+                                            <input (change)="this.onFileSelected($event)" type="file" class="form-control"
+                                                   id="inputPostalCode" placeholder="Upload File">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="packing_type" [(ngModel)]="item.packing_type">
+                                                <option>Select</option>
+                                                <option *ngFor="let item of this.packagingTypeList;let i = index" value="{{item.id}}">
+                                                    {{item.type}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-6" *ngIf="!this.hideLotRefNo">
+                                            <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No" name="lot_ref_no"
+                                                   [(ngModel)]="item.lot_ref_no">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
+                                        <div *ngFor="let containers of getContainersFormControls(); let i = index">
+
+                                            <input [formControl]="containers" type="text" class="form-control" id="containers"
+                                                   placeholder="Containers" name="containers">
+                                            <!--<label>Phone {{i}} </label> -->
+                                            <button style="margin-right: 13px;margin-top: 7px;margin-bottom: 7px;" (click)="removeContainers(i)"><fa-icon [icon]="faMinusCircle"></fa-icon></button>
+                                            <button style="text-decoration: none;" (click)="addContainers()"><fa-icon [icon]="faPlusSquare"></fa-icon></button>
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+                                        <button type="button" class="btn btn-success" (click)="createNewRecord()">
+                                            Create
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" (click)="closePopup()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Form{{selectedProjects}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container py-5">
+                        <div class="row">
+                            <div class="col-md-10 mx-auto">
+                                <form name="update">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputFirstname">Project Code <span class="mandatory">*</span></label>
+                                            <select class="form-control" name="selectedProjects" [(ngModel)]="selectedProjects">
+                                                <option *ngFor="let item of this.projectList;let i = index" value="{{item.project_id}}">
+                                                    {{item.project_name}}
+                                                </option>
+                                            </select>   
+                                            <!--<input type="text" class="form- control" id="projectCode" placeholder="Project Code">-->
+                                            <div class="col-sm-6">
+                                                <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" name="lot_size" [(ngModel)]="item.lot_size"
+                                                       placeholder="Lot Size">
+                                            </div>
+
+                                        </div>
+                                        <!--<div class="col-sm-6">
+                                            <label for="inputCity">Lot Size <span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" name="lot_size" [(ngModel)]="item.lot_size"
+                                                   placeholder="Lot Size">
+                                        </div>-->
+                                    </div>
+                                    <div class="form-group row">
+
+                                        <div class="col-sm-6">
+                                            <label for="inputLastname">Customer Code<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="customer_code" [(ngModel)]="item.customer_code">
+                                                <option>Select</option>
+                                                <option [selected]="item.customer_id===this.selectedProjects" *ngFor="let item of this.customerList;let i = index" value="{{item.customer_id}}">
+                                                    {{item.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                       <!-- <div class="col-sm-6" *ngIf="!this.hideLotRefNo">
+                                            <label for="inputState">Customer Login<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="customer_login" [(ngModel)]="item.customer_login">
+                                                <option>0</option>
+                                                <option *ngFor="let item of this.dataList;let i = index" value="test">
+                                                </option>
+                                            </select>
+                                        </div>-->
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputAddressLine1">Origin Country<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="org_country_id" [(ngModel)]="item.org_country_id">
+                                                <option>Select</option>
+                                                <option [selected]="item.org_country_id" *ngFor="let item of this.countryList;let i = index" value="{{item.id}}">
+                                                    {{item.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!--<div class="col-sm-6" *ngIf="!this.hideUpload">
+                                            <label for="inputPostalCode">Excel File<span class="mandatory">*</span></label>
+                                            <input (change)="this.onFileSelected($event)" type="file" class="form-control"
+                                                   id="inputPostalCode" placeholder="Upload File">
+                                        </div>-->
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="inputAddressLine1">Packaging Type<span class="mandatory">*</span></label>
+                                            <select class="form-control" name="packing_type" [(ngModel)]="item.packing_type">
+                                                <option>Select</option>
+                                                <option [selected]="item.packing_type" *ngFor="let item of this.packagingTypeList;let i = index" value="{{item.id}}">
+                                                    {{item.type}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!--<div class="col-sm-6" *ngIf="!this.hideLotRefNo">
+                                            <label for="inputPostalCode">Lot Ref No<span class="mandatory">*</span></label>
+                                            <input type="text" class="form-control" id="lotRefNo" placeholder="Lot Ref No" name="lot_ref_no"
+                                                   [(ngModel)]="item.lot_ref_no">
+                                        </div>-->
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputContactNumber">Containers<span class="mandatory">*</span></label>
+                                        <div *ngFor="let containers of getContainersFormControls(); let i = index">
+
+                                            <input [formControl]="containers" type="text" class="form-control" id="containers"
+                                                   placeholder="Containers" name="containers">
+                                            <!--<label>Phone {{i}} </label> -->
+                                            <button style="margin-right: 13px;margin-top: 7px;margin-bottom: 7px;" (click)="removeContainers(i)"><fa-icon [icon]="faMinusCircle"></fa-icon></button>
+                                            <button style="text-decoration: none;" (click)="addContainers()"><fa-icon [icon]="faPlusSquare"></fa-icon></button>
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+                                        <button type="button" class="btn btn-success" (click)="UpdateRecord(item)">
+                                            Update
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" (click)="editClosePopup()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
